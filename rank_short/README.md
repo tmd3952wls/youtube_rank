@@ -151,7 +151,7 @@ python make_rank.py render 내폴더/plan.json
 |---|---|---|
 | `list_alpha` | 0.82 | 순위표 불투명도 (낮을수록 투명) |
 | `label_fade` / `label_blur` / `label_delay` | 0.6 / 12 / 0.1 | 새 라벨이 나타나는 시간, 처음 흐림 정도, 시작 지연 |
-| `rank_colors` | 1 빨강 · 2 브론즈 · 3 노랑 | 숫자 색 |
+| `rank_colors` | 1 빨강 · 2 브론즈 · 3 노랑 | 1~3위 숫자와 이름 색 (4위부터 흰색) |
 | `list_x`, `list_y`, `list_step` | 70, 430, 75 | 순위표 위치·간격 |
 | `rank_size`, `label_size` | 56, 54 | 숫자·라벨 글자 크기 |
 | `rank_word_until` | 0 | 이 순위까지 "N등" 표기 (0 = 모두 "N.") |

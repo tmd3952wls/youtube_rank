@@ -326,16 +326,20 @@ def draw_list_text(d, xy, text, fnt, fill, cfg):
            stroke_fill=(20, 20, 20), anchor="lm")
 
 
+def rank_rgb(cfg, rank):
+    return hex_rgb(cfg["rank_colors"].get(str(rank), "#ffffff"))
+
+
 def list_layer(cfg, n, revealed):
     """revealed: {rank: label} 지금 화면에 다 보여 있는 라벨들."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
     fr, fl = list_fonts(cfg)
     for rank, rt, x, y, lx in list_rows(cfg, n):
-        color = hex_rgb(cfg["rank_colors"].get(str(rank), "#ffffff"))
-        draw_list_text(d, (x, y), rt, fr, color, cfg)
+        draw_list_text(d, (x, y), rt, fr, rank_rgb(cfg, rank), cfg)
         if revealed.get(rank):
-            draw_list_text(d, (lx, y), revealed[rank], fl, (255, 255, 255), cfg)
+            # 1·2·3위는 이름도 번호와 같은 색
+            draw_list_text(d, (lx, y), revealed[rank], fl, rank_rgb(cfg, rank), cfg)
     sh = img.split()[3].filter(ImageFilter.GaussianBlur(4)).point(lambda v: int(v * 0.55))
     shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     shadow.paste((0, 0, 0, 255), (3, 4), sh)
@@ -353,7 +357,7 @@ def label_anim_frames(cfg, n, rank, text, tmp, tag):
     l, t, r, b = fl.getbbox(text, stroke_width=cfg["list_stroke"], anchor="lm")
     base = Image.new("RGBA", (r - l + pad * 2, b - t + pad * 2), (0, 0, 0, 0))
     d = ImageDraw.Draw(base)
-    draw_list_text(d, (pad - l, pad - t), text, fl, (255, 255, 255), cfg)
+    draw_list_text(d, (pad - l, pad - t), text, fl, rank_rgb(cfg, rank), cfg)
     sh = base.split()[3].filter(ImageFilter.GaussianBlur(4)).point(lambda v: int(v * 0.55))
     full = Image.new("RGBA", base.size, (0, 0, 0, 0))
     full.paste((0, 0, 0, 255), (3, 4), sh)

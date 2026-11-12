@@ -20,3 +20,8 @@ refs/
 **/_tmp*/
 __pycache__/
 *.pyc
+
+# 비밀번호·토큰
+secrets.env
+client_secret*.json
+token*.json
