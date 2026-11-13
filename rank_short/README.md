@@ -167,3 +167,32 @@ python make_rank.py render 내폴더/plan.json
 
 ## 필요한 것
 Python 3, Pillow, ffmpeg/ffprobe (PATH). `draft` 는 faster-whisper, soundfile, numpy 추가.
+
+
+---
+
+## 자동 효과음 디렉터 파이프라인 확장 (Antigravity `agy` + Gemini 멀티모달)
+
+기존 `make_rank.py` 구조를 그대로 유지하면서, AI가 초안 영상을 직접 시청하고 효과음을 자동 연출·수급·덕킹 합성하는 `rank_short/sfx_director/` 모듈이 추가되었습니다.
+
+### 주요 기능
+1. **로컬 효과음 증분 카탈로그화 (`catalog.py`)**: `LOCAL_SFX_DIR` 폴더의 오디오를 FFmpeg/NumPy 파형 분석(길이·5ms 타격 정점·dBFS) + Gemini 멀티모달 청취로 분석해 `sfx_catalog.json`에 캐싱 (신규 추가 파일만 증분 분석).
+2. **영상 시청 기반 자동 큐시트 (`cue_sheet.py`)**: `joined.mp4` 초안 영상을 시청해 초반 3초 후킹, 순위 전환, 자막 애니메이션(`drop`/`pop`/`shake`/`zoom`), 슬로모션·반전 포인트를 `sfx_cue_sheet.json`으로 출력.
+3. **하이브리드 매칭 & Fallback 수급 (`matcher_fallback.py`)**: 1순위 로컬 카탈로그 → 2순위 Freesound APIv2 자동 다운로드 → 3순위 ElevenLabs Sound Effects API 생성 후 로컬 폴더·카탈로그에 자동 편입.
+4. **음성 보호 덕킹 & 피크 정렬 믹싱 (`mixer.py`)**: 대사/나레이션 활성 구간 대비 효과음 볼륨을 `-12dB ~ -18dB`로 자동 감쇠하고 타격 정점(`peak_time_sec`)을 타임스탬프에 맞춰 2-pass `loudnorm`(-14 LUFS) 합성.
+
+### 빠른 사용법
+```bash
+# 1) 루트에 .env 생성 후 LOCAL_SFX_DIR, GEMINI_API_KEY 설정 (AUTO_SFX_ENABLED=true/false)
+cp .env.example .env
+
+# 2) 로컬 효과음 폴더 증분 인덱싱
+python -m rank_short.sfx_director catalog
+
+# 3) 기존 렌더러에서 자동 효과음 디렉터 함께 실행
+python rank_short/make_rank.py render ep_water/plan.json --auto-sfx
+
+# 4) 기존 방식 그대로(자동 효과음 끄기) 렌더링
+python rank_short/make_rank.py render ep_water/plan.json --no-auto-sfx
+```
+상세 에이전트 운용 지침은 루트의 `GEMINI.md`와 `AGENTS.md`를 참고하세요.

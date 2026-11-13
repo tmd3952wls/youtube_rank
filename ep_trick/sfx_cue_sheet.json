@@ -1,0 +1,89 @@
+{
+  "version": "2.0",
+  "video_path": "c:\\Users\\tmd39\\Desktop\\youtube_rank\\ep_trick\\final.mp4",
+  "video_duration_sec": 39.8,
+  "fps": 30.0,
+  "director_model": "gemini-multimodal-reference-matched",
+  "video_summary_ko": "레퍼런스 12편(랭킹감자·별별쇼츠) 직접 시청·청취 분석 기반: 만화 효과음 전면 배제, 현장 원음(1.0배속 실제 타격음·목소리·환호) 중심 + 컷 전환 묵직한 저음 후욱-쿵 + 장면별 무보컬 배경음(-14~-18dB 덕킹) 설계",
+  "hook_analysis_ko": "0~5.1초 버저비터 실제 경기장 부저·그물 소리·관중 함성과 1101_스포츠 기타 리프로 즉각 몰입 유도",
+  "cues": [
+    {
+      "cue_id": "cue_001",
+      "timestamp_str": "00:05.20",
+      "timestamp_sec": 5.2,
+      "frame_index": 156,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "7등→6등 암전 중앙 저음 후욱 + 6등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_002",
+      "timestamp_str": "00:10.10",
+      "timestamp_sec": 10.1,
+      "frame_index": 303,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "6등→5등 암전 중앙 저음 후욱 + 5등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_003",
+      "timestamp_str": "00:14.50",
+      "timestamp_sec": 14.5,
+      "frame_index": 435,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "5등→4등 암전 중앙 저음 후욱 + 4등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_004",
+      "timestamp_str": "00:20.30",
+      "timestamp_sec": 20.3,
+      "frame_index": 609,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "4등→3등 암전 중앙 저음 후욱 + 3등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_005",
+      "timestamp_str": "00:26.90",
+      "timestamp_sec": 26.9,
+      "frame_index": 807,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "3등→2등 암전 중앙 저음 후욱 + 2등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_006",
+      "timestamp_str": "00:32.20",
+      "timestamp_sec": 32.2,
+      "frame_index": 966,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "2등→1등 암전 중앙 저음 후욱 + 1등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    }
+  ]
+}

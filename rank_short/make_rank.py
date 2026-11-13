@@ -27,10 +27,44 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 W, H = 1080, 1920
 FONT_HEAVY = ROOT / "assets/fonts/BlackHanSans-Regular.ttf"
-FONT_SUB_CANDIDATES = [ROOT / "assets/fonts/sub.ttf", Path("C:/Windows/Fonts/malgunbd.ttf"),
-                       FONT_HEAVY]
+FONT_SUB_CANDIDATES = [
+    ROOT / "assets/fonts/sub.ttf",
+    Path("C:/Windows/Fonts/malgunbd.ttf"),
+    Path("/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"),
+    FONT_HEAVY,
+]
+
+
+def _resolve_default_sfx_dir() -> str:
+    """LOCAL_SFX_DIR 환경변수/.env 우선 → 효과음2869개 폴더 존재 시 사용 → 기존 효과음600개 폴백."""
+    import os
+    env_val = os.environ.get("LOCAL_SFX_DIR", "").strip()
+    if not env_val:
+        for env_p in (ROOT.parent / ".env", ROOT.parent / "secrets.env"):
+            if env_p.is_file():
+                for ln in env_p.read_text(encoding="utf-8", errors="replace").splitlines():
+                    s = ln.strip()
+                    if s and not s.startswith("#") and "=" in s:
+                        k, v = s.split("=", 1)
+                        if k.strip() == "LOCAL_SFX_DIR" and v.strip():
+                            env_val = v.strip().strip('"').strip("'")
+                            break
+            if env_val:
+                break
+    if env_val:
+        return env_val
+    cand_2869 = Path("C:/Users/tmd39/Desktop/효과음/효과음2869개")
+    try:
+        if cand_2869.exists():
+            return str(cand_2869)
+    except OSError:
+        pass
+    return "C:/Users/tmd39/Desktop/효과음/효과음600개"
+
 
 DEFAULTS = {
     "template": "black",       # "black" = 위아래 검정 띠 + 긴 영상 (기본) / "blur" = 흐린 배경
@@ -58,8 +92,8 @@ DEFAULTS = {
     "title_color": "#ffe23a",     # 주제(눈길 가는 부분) 노랑. [ ] 를 쓰면 그 부분만 노랑, 나머지 흰색
     "subtitle_color": "#ff3b3b",  # "랭킹 TOP N" 빨강
     "loudness": -14,           # 최종 LUFS
-    # 효과음 폴더 (사용자 효과음 600개). 이름 일부로 찾음: "휙(만화적)", "007_쿵" …
-    "sfx_dir": "C:/Users/tmd39/Desktop/효과음/효과음600개",
+    # 효과음 폴더 (.env 의 LOCAL_SFX_DIR 또는 효과음2869개/600개 자동 감지)
+    "sfx_dir": _resolve_default_sfx_dir(),
     "sfx_peak_db": -9,         # 효과음 정점 크기 기준 (원본 소리를 덮지 않게)
     "bgm_rms_db": -20,         # 장면별 배경음 평균 크기 기준 (vol 1.0 일 때). 원본 소리 밑에 깔림
     # 순위 전환: 휙(검은 화면 한가운데 정점) + 쿵(다음 영상 시작). 레퍼런스 분석 기반
@@ -67,6 +101,8 @@ DEFAULTS = {
                    "hit": "007_쿵", "hit_vol": 0.5, "whoosh_first": True},
     "sfx": None,               # (예전 방식) {"path": "...wav", "volume": 0.6}  순위 시작마다
     "bgm": None,               # {"path": "...mp3", "volume": 0.12}
+    "narration": None,         # 선택: {"path": "tts.mp3", "volume": 1.0} 별도 나레이션 트랙
+    "auto_sfx": None,          # None 이면 환경변수 AUTO_SFX_ENABLED 따름, true/false 로 개별 지정 가능
 }
 
 
@@ -271,7 +307,8 @@ def fit_w(img, maxw=W - 60):
 
 def header_layer(cfg):
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    if cfg["template"] == "black":
+    hstyle = cfg.get("header_style") or ("flat" if cfg["template"] == "black" else "gradient")
+    if hstyle == "flat":
         # 검정 띠 위: (질문 한 줄, 흰색) / 주제 (주아체 노랑, [ ] 로 일부만 노랑 가능) / "랭킹 TOP N" (빨강)
         tf = title_font
         if cfg.get("hook_text"):
@@ -287,8 +324,10 @@ def header_layer(cfg):
     if t1.width > W - 60:
         t1 = t1.resize((W - 60, int(t1.height * (W - 60) / t1.width)), Image.LANCZOS)
     t2 = gradient_text(cfg["subtitle"], font(cfg["subtitle_size"]), "#ffffff", "#8f8f8f", 9)
-    img.alpha_composite(t1, ((W - t1.width) // 2, 205 - t1.height // 2))
-    img.alpha_composite(t2, ((W - t2.width) // 2, 300 - t2.height // 2))
+    hy1 = int(cfg.get("title_y", 205 if cfg["video_top"] >= 360 else 190))
+    hy2 = int(cfg.get("subtitle_y", 300 if cfg["video_top"] >= 360 else 284))
+    img.alpha_composite(t1, ((W - t1.width) // 2, hy1 - t1.height // 2))
+    img.alpha_composite(t2, ((W - t2.width) // 2, hy2 - t2.height // 2))
     return img
 
 
@@ -690,7 +729,7 @@ def find_sfx(name, cfg, plan_dir):
     d = Path(cfg["sfx_dir"])
     if not d.is_dir():
         raise SystemExit(f"효과음 폴더가 없습니다: {d}  (plan.json 의 \"sfx_dir\" 로 지정)")
-    files = [f for f in d.iterdir() if f.suffix.lower() in (".mp3", ".wav", ".ogg", ".m4a", ".flac")]
+    files = [f for f in d.rglob("*") if f.is_file() and f.suffix.lower() in (".mp3", ".wav", ".ogg", ".m4a", ".flac", ".aac")]
     key = name.lower()
     for test in (lambda s: s.lower() == key,
                  lambda s: s.split("_", 1)[-1].lower() == key,
@@ -827,8 +866,23 @@ def cmd_render(a):
         cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(joined)]
         mix, k = ["[0:a]"], 1
         fc = []
-        # 효과음: 순위 전환(휙+쿵) + 클립 안 효과음(fx)
+        # 효과음: 순위 전환(휙+쿵) + 클립 안 효과음(fx) + (활성화 시) AI 자동 효과음 디렉터
         events = sfx_events(cfg, items, starts, ends, plan_path)
+        cli_auto = True if getattr(a, "auto_sfx", False) else (False if getattr(a, "no_auto_sfx", False) else None)
+        cue_override = Path(a.cue_sheet).resolve() if getattr(a, "cue_sheet", None) else None
+        from sfx_director.pipeline import run_auto_sfx_for_render
+        auto_events = run_auto_sfx_for_render(
+            joined_video_path=joined,
+            plan_path=plan_path,
+            plan_cfg=cfg,
+            items=items,
+            starts=starts,
+            ends=ends,
+            cli_auto_sfx=cli_auto,
+            cue_sheet_override=cue_override,
+        )
+        if auto_events:
+            events = sorted([*events, *auto_events], key=lambda e: e[1])
         wins = sting_windows(items, starts)
         dz_bgm, dz_orig = duck_expr(wins, "bgm"), duck_expr(wins, "orig")
         if dz_orig:
@@ -861,6 +915,16 @@ def cmd_render(a):
                           f"volume={cfg['sfx'].get('volume', 0.6)},adelay={ms}|{ms}[x{j}]")
                 mix.append(f"[x{j}]")
                 k += 1
+        if cfg.get("narration"):
+            nar = cfg["narration"] if isinstance(cfg["narration"], dict) else {"path": str(cfg["narration"])}
+            if nar.get("path"):
+                np_p = Path(nar["path"])
+                np_p = np_p if np_p.is_absolute() else plan_path.parent / np_p
+                cmd += ["-i", str(np_p)]
+                fc.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,"
+                          f"volume={nar.get('volume', 1.0)},apad,atrim=0:{total:.3f}[nar]")
+                mix.append("[nar]")
+                k += 1
         if cfg.get("bgm") and cfg["bgm"].get("path"):
             bp = Path(cfg["bgm"]["path"])
             bp = bp if bp.is_absolute() else plan_path.parent / bp
@@ -879,9 +943,9 @@ def cmd_render(a):
         m = json.loads(r.stderr[r.stderr.rindex("{"): r.stderr.rindex("}") + 1])
         ln += (f":measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
                f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
-        fc.append(f"{mixed},{ln},aresample=48000[aout]")
+        fc.append(f"{mixed},{ln},aresample=48000,aformat=sample_rates=48000:channel_layouts=stereo[aout]")
         cmd += ["-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[aout]",
-                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)]
+                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart", str(out)]
         run(cmd)
         print(f"\n완료: {out}  ({total:.1f}초)" + ("  ⚠ 60초 초과" if total > 60 else ""))
     finally:
@@ -1015,6 +1079,9 @@ def main():
     r.add_argument("plan")
     r.add_argument("--out")
     r.add_argument("--keep-tmp", action="store_true")
+    r.add_argument("--auto-sfx", action="store_true", help="AUTO_SFX_ENABLED 값과 무관하게 AI 효과음 디렉터 강제 실행")
+    r.add_argument("--no-auto-sfx", action="store_true", help="AUTO_SFX_ENABLED=true 여도 AI 효과음 디렉터 비활성화")
+    r.add_argument("--cue-sheet", help="지정된 sfx_cue_sheet.json 파일을 사용하여 효과음 합성")
     dr = sub.add_parser("draft", help="원본 소리 받아쓰기 + 큰 소리 시점을 plan.json 에 기록")
     dr.add_argument("plan")
     dr.add_argument("--model", default="small")
