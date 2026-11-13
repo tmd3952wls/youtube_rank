@@ -1,0 +1,89 @@
+{
+  "version": "2.0",
+  "video_path": "c:\\Users\\tmd39\\Desktop\\youtube_rank\\ep_unlucky\\final.mp4",
+  "video_duration_sec": 38.2,
+  "fps": 30.0,
+  "director_model": "gemini-multimodal-reference-matched",
+  "video_summary_ko": "레퍼런스 12편(랭킹감자 '운 없는 날 모음집' 570만 뷰 등) 분석 기반: 만화 효과음 전면 배제, 현장 원음(1.0배속 실제 비명·폭소·충돌음) 중심 + 컷 전환 묵직한 저음 후욱-쿵 + 장면별 무보컬 배경음(-15~-18dB 덕킹) 설계",
+  "hook_analysis_ko": "0~4.0초 시선 집중 커플 요가 포즈 중 전화 받느라 다리 놓아버리는 반전 참사와 실제 충돌음(-15.6dB)·대사('여보세요?') 싱크로 즉각 몰입 유도",
+  "cues": [
+    {
+      "cue_id": "cue_001",
+      "timestamp_str": "00:04.10",
+      "timestamp_sec": 4.1,
+      "frame_index": 123,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "7등→6등 암전 중앙 저음 후욱 + 6등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_002",
+      "timestamp_str": "00:08.10",
+      "timestamp_sec": 8.1,
+      "frame_index": 243,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "6등→5등 암전 중앙 저음 후욱 + 5등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_003",
+      "timestamp_str": "00:13.90",
+      "timestamp_sec": 13.9,
+      "frame_index": 417,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "5등→4등 암전 중앙 저음 후욱 + 4등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_004",
+      "timestamp_str": "00:19.30",
+      "timestamp_sec": 19.3,
+      "frame_index": 579,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "4등→3등 암전 중앙 저음 후욱 + 3등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_005",
+      "timestamp_str": "00:26.30",
+      "timestamp_sec": 26.3,
+      "frame_index": 789,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "3등→2등 암전 중앙 저음 후욱 + 2등 첫 프레임 묵직한 쿵",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_006",
+      "timestamp_str": "00:31.90",
+      "timestamp_sec": 31.9,
+      "frame_index": 957,
+      "trigger_type": "cut_transition",
+      "category": "whoosh_hit",
+      "sound_concept_ko": "2등→1등 암전 중앙 저음 후욱 + 1등 첫 프레임 묵직한 쿵",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "align_to_peak": true,
+      "overlaps_voice": false,
+      "target_db_relative_to_voice": -15.0
+    }
+  ]
+}
