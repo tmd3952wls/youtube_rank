@@ -1,0 +1,495 @@
+{
+  "version": "1.0",
+  "video_path": "C:\\Users\\tmd39\\Desktop\\youtube_rank\\ep_money\\final.mp4",
+  "video_duration_sec": 38.212,
+  "fps": 30.0,
+  "created_at": "2026-11-14T19:48:00.981359+00:00",
+  "director_model": "gemini-verified-frame-exact-sync",
+  "video_summary_ko": "레퍼런스('쓸데없이 돈 나가는 날 TOP 6' 등 7편) 정밀 벤치마크 기반 '순식간에 돈 삭제되는 날 랭킹 TOP 5' (38.21초): 억지 비키니 오프닝을 배제하고 5등(유리식탁 위 강아지 파열)부터 4등(생일케이크 추락 절규), 3등(사무실 벽선반 붕괴), 2등(200만원 드론 바닷속 수장), 1등(앞마당 20m 거목+전깃줄 전복)까지 전 순위 100% 주제 일치 및 리액션 호흡 반영",
+  "hook_analysis_ko": "0.00~4.10초 주인 외출 중 강화유리 식탁 한복판에 올라선 대형견 구도로 즉각적인 긴장감·호기심 유발 후 4.10초 전면 파열 사운드 피크 동기화",
+  "cues": [
+    {
+      "cue_id": "cue_001",
+      "timestamp_str": "00:00.12",
+      "timestamp_sec": 0.12,
+      "frame_index": 4,
+      "trigger_type": "hook_3s",
+      "category": "pop_ui",
+      "sound_concept_ko": "5등 '외출' — 경쾌한 포인트 팝 효과음",
+      "search_keywords_ko": [
+        "팝"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "5등 '외출' 프레임 정밀 동기화 (clip+0.12s)",
+      "align_to_peak": true,
+      "intensity": 0.42,
+      "max_duration_sec": 1.5,
+      "rank_context": 5,
+      "matched_sfx_id": "008_팝",
+      "matched_file": "008_팝.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_002",
+      "timestamp_str": "00:04.10",
+      "timestamp_sec": 4.1,
+      "frame_index": 123,
+      "trigger_type": "hook_3s",
+      "category": "impact",
+      "sound_concept_ko": "5등 '외출' — 강화유리 식탁 전면 파열·산산조각 사운드",
+      "search_keywords_ko": [
+        "유리창 산산조각나는 소리1"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "5등 '외출' 프레임 정밀 동기화 (clip+4.10s)",
+      "align_to_peak": true,
+      "intensity": 0.62,
+      "max_duration_sec": 1.5,
+      "rank_context": 5,
+      "matched_sfx_id": "1197_유리창 산산조각나는 소리1",
+      "matched_file": "1197_유리창 산산조각나는 소리1.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_003",
+      "timestamp_str": "00:04.45",
+      "timestamp_sec": 4.45,
+      "frame_index": 134,
+      "trigger_type": "hook_3s",
+      "category": "impact",
+      "sound_concept_ko": "5등 '외출' — 묵직한 저음 임팩트 쿵 타격음",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "5등 '외출' 프레임 정밀 동기화 (clip+4.45s)",
+      "align_to_peak": true,
+      "intensity": 0.52,
+      "max_duration_sec": 1.5,
+      "rank_context": 5,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_004",
+      "timestamp_str": "00:07.51",
+      "timestamp_sec": 7.51,
+      "frame_index": 225,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "5등→4등 암전 저음 스우시 + 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "5등 종료 및 4등 진입 경계 (7.51s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 4,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_005",
+      "timestamp_str": "00:09.77",
+      "timestamp_sec": 9.77,
+      "frame_index": 293,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "4등 '생일' — 물리 충돌·낙하 타격음 (퍽)",
+      "search_keywords_ko": [
+        "때리는 효과음(퍽)1"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "4등 '생일' 프레임 정밀 동기화 (clip+2.15s)",
+      "align_to_peak": true,
+      "intensity": 0.46,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "546_때리는 효과음(퍽)1",
+      "matched_file": "546_때리는 효과음(퍽)1.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_006",
+      "timestamp_str": "00:11.32",
+      "timestamp_sec": 11.32,
+      "frame_index": 340,
+      "trigger_type": "action_impact",
+      "category": "pop_ui",
+      "sound_concept_ko": "4등 '생일' — 경쾌한 포인트 팝 효과음",
+      "search_keywords_ko": [
+        "팝"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "4등 '생일' 프레임 정밀 동기화 (clip+3.70s)",
+      "align_to_peak": true,
+      "intensity": 0.35,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "008_팝",
+      "matched_file": "008_팝.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_007",
+      "timestamp_str": "00:15.63",
+      "timestamp_sec": 15.63,
+      "frame_index": 469,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "4등→3등 암전 저음 스우시 + 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "4등 종료 및 3등 진입 경계 (15.63s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 3,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_008",
+      "timestamp_str": "00:15.79",
+      "timestamp_sec": 15.79,
+      "frame_index": 474,
+      "trigger_type": "ambience_fill",
+      "category": "ambience_fill",
+      "sound_concept_ko": "3등 '벽선반' — 평화로운 사무실 키보드 타이핑 현장음 보강",
+      "search_keywords_ko": [
+        "키보드 타이핑"
+      ],
+      "search_keywords_en": [
+        "ambience_fill"
+      ],
+      "generation_prompt_en": "Realistic ambience_fill sound effect",
+      "visual_reason_ko": "3등 '벽선반' 프레임 정밀 동기화 (clip+0.05s)",
+      "align_to_peak": false,
+      "intensity": 0.36,
+      "max_duration_sec": 1.5,
+      "rank_context": 3,
+      "matched_sfx_id": "0649_키보드 타이핑",
+      "matched_file": "0649_키보드 타이핑.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_009",
+      "timestamp_str": "00:17.36",
+      "timestamp_sec": 17.36,
+      "frame_index": 521,
+      "trigger_type": "action_impact",
+      "category": "whoosh",
+      "sound_concept_ko": "3등 '벽선반' — 추락·전복 직전 빠른 공기 가르는 스우시",
+      "search_keywords_ko": [
+        "훅"
+      ],
+      "search_keywords_en": [
+        "whoosh"
+      ],
+      "generation_prompt_en": "Realistic whoosh sound effect",
+      "visual_reason_ko": "3등 '벽선반' 프레임 정밀 동기화 (clip+1.62s)",
+      "align_to_peak": true,
+      "intensity": 0.48,
+      "max_duration_sec": 1.5,
+      "rank_context": 3,
+      "matched_sfx_id": "190_훅",
+      "matched_file": "190_훅.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_010",
+      "timestamp_str": "00:17.74",
+      "timestamp_sec": 17.74,
+      "frame_index": 532,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "3등 '벽선반' — 묵직한 저음 임팩트 쿵 타격음",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "3등 '벽선반' 프레임 정밀 동기화 (clip+2.00s)",
+      "align_to_peak": true,
+      "intensity": 0.66,
+      "max_duration_sec": 1.5,
+      "rank_context": 3,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_011",
+      "timestamp_str": "00:17.82",
+      "timestamp_sec": 17.82,
+      "frame_index": 535,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "3등 '벽선반' — 벽선반 및 적재 박스 연쇄 붕괴 사운드",
+      "search_keywords_ko": [
+        "젠가 무너지는 소리"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "3등 '벽선반' 프레임 정밀 동기화 (clip+2.08s)",
+      "align_to_peak": false,
+      "intensity": 0.58,
+      "max_duration_sec": 1.35,
+      "rank_context": 3,
+      "matched_sfx_id": "1489_젠가 무너지는 소리",
+      "matched_file": "1489_젠가 무너지는 소리.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_012",
+      "timestamp_str": "00:21.50",
+      "timestamp_sec": 21.5,
+      "frame_index": 645,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "3등→2등 암전 저음 스우시 + 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "3등 종료 및 2등 진입 경계 (21.50s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 2,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_013",
+      "timestamp_str": "00:27.41",
+      "timestamp_sec": 27.41,
+      "frame_index": 822,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "2등 '첫비행' — 물리 충돌·낙하 타격음 (퍽)",
+      "search_keywords_ko": [
+        "때리는 효과음(퍽)1"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "2등 '첫비행' 프레임 정밀 동기화 (clip+5.80s)",
+      "align_to_peak": true,
+      "intensity": 0.52,
+      "max_duration_sec": 1.5,
+      "rank_context": 2,
+      "matched_sfx_id": "546_때리는 효과음(퍽)1",
+      "matched_file": "546_때리는 효과음(퍽)1.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_014",
+      "timestamp_str": "00:28.46",
+      "timestamp_sec": 28.46,
+      "frame_index": 854,
+      "trigger_type": "action_impact",
+      "category": "water_liquid",
+      "sound_concept_ko": "2등 '첫비행' — FPV 드론 바닷물 직격 입수 첨벙 사운드",
+      "search_keywords_ko": [
+        "물 첨벙 2"
+      ],
+      "search_keywords_en": [
+        "water_liquid"
+      ],
+      "generation_prompt_en": "Realistic water_liquid sound effect",
+      "visual_reason_ko": "2등 '첫비행' 프레임 정밀 동기화 (clip+6.85s)",
+      "align_to_peak": true,
+      "intensity": 0.68,
+      "max_duration_sec": 1.5,
+      "rank_context": 2,
+      "matched_sfx_id": "0745_물 첨벙 2",
+      "matched_file": "0745_물 첨벙 2.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_015",
+      "timestamp_str": "00:28.61",
+      "timestamp_sec": 28.61,
+      "frame_index": 858,
+      "trigger_type": "action_impact",
+      "category": "water_liquid",
+      "sound_concept_ko": "2등 '첫비행' — 드론 수장 직후 수중 기포 보글보글 사운드",
+      "search_keywords_ko": [
+        "보글보글 끊는 소리"
+      ],
+      "search_keywords_en": [
+        "water_liquid"
+      ],
+      "generation_prompt_en": "Realistic water_liquid sound effect",
+      "visual_reason_ko": "2등 '첫비행' 프레임 정밀 동기화 (clip+7.00s)",
+      "align_to_peak": false,
+      "intensity": 0.45,
+      "max_duration_sec": 0.75,
+      "rank_context": 2,
+      "matched_sfx_id": "175_보글보글 끊는 소리",
+      "matched_file": "175_보글보글 끊는 소리.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_016",
+      "timestamp_str": "00:29.52",
+      "timestamp_sec": 29.52,
+      "frame_index": 886,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "2등→1등 암전 저음 스우시 + 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "2등 종료 및 1등 진입 경계 (29.52s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 1,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_017",
+      "timestamp_str": "00:33.13",
+      "timestamp_sec": 33.13,
+      "frame_index": 994,
+      "trigger_type": "action_impact",
+      "category": "whoosh",
+      "sound_concept_ko": "1등 '앞마당' — 추락·전복 직전 빠른 공기 가르는 스우시",
+      "search_keywords_ko": [
+        "훅"
+      ],
+      "search_keywords_en": [
+        "whoosh"
+      ],
+      "generation_prompt_en": "Realistic whoosh sound effect",
+      "visual_reason_ko": "1등 '앞마당' 프레임 정밀 동기화 (clip+3.50s)",
+      "align_to_peak": true,
+      "intensity": 0.48,
+      "max_duration_sec": 1.5,
+      "rank_context": 1,
+      "matched_sfx_id": "190_훅",
+      "matched_file": "190_훅.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_018",
+      "timestamp_str": "00:35.18",
+      "timestamp_sec": 35.18,
+      "frame_index": 1055,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "1등 '앞마당' — 20m 거목 전복 및 전깃줄 파열 묵직한 저음 진동",
+      "search_keywords_ko": [
+        "폭발 -b묵직"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "1등 '앞마당' 프레임 정밀 동기화 (clip+5.55s)",
+      "align_to_peak": true,
+      "intensity": 0.5,
+      "max_duration_sec": 1.5,
+      "rank_context": 1,
+      "matched_sfx_id": "084_폭발 -b묵직",
+      "matched_file": "084_폭발 -b묵직.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    },
+    {
+      "cue_id": "cue_019",
+      "timestamp_str": "00:35.83",
+      "timestamp_sec": 35.83,
+      "frame_index": 1075,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "1등 '앞마당' — 묵직한 저음 임팩트 쿵 타격음",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "1등 '앞마당' 프레임 정밀 동기화 (clip+6.20s)",
+      "align_to_peak": true,
+      "intensity": 0.6,
+      "max_duration_sec": 1.5,
+      "rank_context": 1,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0
+    }
+  ]
+}
