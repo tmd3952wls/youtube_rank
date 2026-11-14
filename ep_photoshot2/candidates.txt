@@ -1,0 +1,76 @@
+OK |  2,590,632 |  228s | 1920x1080 | vlogbrothers | Some Rough Advice for the "Real World" | OCO8eoDWqHQ
+OK |    158,855 |  175s | 1920x1080 | JesssFam | BABY #5 MATERNITY PHOTOSHOOT! | zut8cwfP6H4
+OK |     43,367 |  237s | 3840x2160 | More With Wes Photo | Focus Bracketing with the Canon R5 (for Product Photography) | dpRPp53aEDA
+OK |      3,254 |  202s | 1920x1080 | Life is Beautiful | Backstage Shooting Bikini Surf Session | KVenXpxhFRA
+OK |      2,919 |   45s | 1920x1080 | k!k! | k!k! Underwater Photoshoot | HMZsdyYtmp0
+OK |      1,565 |  232s | 1920x1080 | Tim Shields | Your Photos Look Boring Because You Do THIS Wrong | pQwl_T2Mj4g
+OK |        505 |  148s | 3840x2160 | Miss Kat Capone | 2 Minute Photography Tips: Split Lighting | Vinyl Studio Backdrops w/Kat Armendariz | OwtpT_1i1Pg
+OK |        437 |  100s | 1920x1080 | Roel Van de Paar | Unable to burn .iso using Windows Disc Image Burner (Error code: 0x80004005) | l6DIwWmEUTU
+OK |        362 |   93s | 1920x1080 | Roel Van de Paar | Apple: Unable to take screenshot in MacBook using shortcut shift+command+3/4 | 6wfcQqF6lw4
+OK |        348 |  225s | 3840x2160 | Maartentravels | Cliff Jumping in Siquijor, Philippines 🇵🇭 (Salagdoong Beach) | VJgzVgi16PY
+OK |        301 |  221s | 1920x1080 | Style For You | Summer Look Book 2018 -  Beach Girls 2018 | tmvonsPvQyQ
+OK |        300 |  103s | 1920x1080 | Roel Van de Paar | Unable to create disk image using disk utility (Input/output error) | V8z0998_WLk
+OK |        233 |   58s | 1920x1080 | 77Studio | Alexandria Beach | ZGRig3jxf0E
+OK |        217 |  150s | 3840x2160 | Jamz & Jellies  | When Your Photographer Frames You for Murder | nHbioHLz90c
+OK |        209 |   14s | 1920x1080 | a SUNNYS day | ASunnysDay ☀️ *puppy photo shoot 2020* | CLk6OhHVlhI
+OK |        181 |  144s | 1920x1080 | 3MenArmy Kenya | Photo Shoot gone Wrong | mK7IxOTT4ss
+OK |        177 |   34s | 3840x2160 | VIP Shop Management | Take a Picture of every Failed Item, and send it to your customer via Text Message | OykXPS_L9vs
+OK |        160 |   16s | 2560x1440 | The Search MTB | When MTB filming doesn't go to plan! OUCH!!!!! #FAIL | 0tzcNpbbg9k
+OK |        137 |   93s | 1920x1080 | VideoCity | Adorable and Funny Newborn baby Photoshoot by Amy Haehl | RAawi3kWNM0
+OK |        116 |   73s | 1920x1080 | CoBRaS47 | Funny Photo Session 1 | uZjcvJerKMA
+OK |        112 |   64s | 1920x1080 | COMMON MAN | Comedy – funny – whats app – facebook – Beach - video 999 | KtJcpQjF6Bo
+OK |         86 |  241s | 3840x2160 | L.Visions Photography | Branding Photoshoot: Outfit Wins and Wardrobe Fails | haHNw-yeTWA
+OK |         69 |   95s | 1080x1920 | Rosalyn McClore | Filming tonight was an epic fail | roOfsZQCKb8
+OK |         57 |   20s | 3840x2160 | bst. photography | Mt. Maelifell / Mt. Mælifell at Sunset | 20160913TL01 | www.BSt.photography | rUgUv9aJ5d4
+OK |         37 |   93s | 1920x1080 | Roel Van de Paar | Unable to send images using html email in script task in ssis | 6aJ3n86ZTnY
+OK |         33 |   23s | 1920x1080 | dog accessories | Selfie Gone Terribly Wrong !! | WPNpGV1ZAb4
+OK |         31 |  208s | 3840x2160 | Will Mydell | Epic #Photoshoot Fail: Black Ninja Takes Over | sxCoCJgYe5I
+OK |         30 |  178s | 3840x2160 | Sadrac Quiles | M-Film sample PHOTOS and VIDEOS | Canon EOS-M | Nu1fVtcDmJw
+OK |         28 |   25s | 1920x1080 | Shake and Share Media  | 360 Photo Booth at The Breakers Palm Beach | Corporate Event Activation | 360 photo booth rental | NSBHB0mNp6U
+OK |         14 |  162s | 1920x1080 | Roel Van de Paar | Sharepoint: Unable to create Image Slider web part using slideShow.js | DLurVtbBUQU
+OK |         12 |   95s | 3840x2160 | Adeye | [For your inspiration] slide show beach photos | Evsi8vvwyNU
+OK |          3 |  131s | 1920x1080 | Roel Van de Paar | Unable to get dominant colour of image using Microsoft's Computer Vision | BbDZFOQyPlc
+OK |          3 |   88s | 1920x1080 | Roel Van de Paar | Cygwin login fails using WinSCP under restored MS Windows Sysprep Image | ho6KD05gR_Y
+OK |          2 |  140s | 1920x1080 | Roel Van de Paar | Wordpress: Unable to check if image uploaded by wp_image_editor exists using file_exists function | DzUvoO8ylO8
+OK |          1 |  202s | 1920x1080 | Roel Van de Paar | Sharepoint: Unable to get Image Slider Picture Library using CSOM | GJSWHO2SKFg
+OK |          0 |  124s | 1920x1080 | Roel Van de Paar | Magento: Magento 2.1: Unable to import production images using "additional_images" column | EA7LR-5LFlg
+OK |          0 |  120s | 1920x1080 | Roel Van de Paar | DevOps & SysAdmins: IIS loading image resources fails using non-standard Port | Kxw32oEIZZ4
+OK |          0 |  106s | 1920x1080 | Roel Van de Paar | Sharepoint: Unable to publish pictures in Blog using Word 2010 to SharePoint 2013 (2 Solutions!!) | 2_P2evh72J0
+OK |          0 |  137s | 1920x1080 | Roel Van de Paar | Ubuntu: Unable to set background image using python (2.7.3), bash and gnome3 (2 Solutions!!) | _94VeU6HLzM
+⚠ 모음집 제목 |     98,468 |   84s | 1920x1080 | ArtResin | Top 4 ArtResin Ideas! No. 3 - Coating a Mounted Photo | -yvFH6foJog
+⚠ 720p 저화질 |     87,534 |   16s | 1280x720 | People News | Hilarious News: Laura Ingram's guest a Fox News Contributor falls off chair while taking selfie. | jQdNu2oHaZw
+⚠ 480p 저화질 |     46,775 |   69s | 656x480 | ETV Andhra Pradesh | Pre Wedding video Goes Wrong | Kerala Couple Falls Into River | G19OUxGpRYo
+⚠ 720p 저화질 |     11,649 |  194s | 1280x720 | Mockstars | CAMERA MAN FAIL | oDzhrzj5j-U
+⚠ 모음집 제목 |      8,425 |  273s | 1920x1080 | Tori Meadows | shooting a vogue magazine photoshoot by myself (tiktok vogue challenge) | 8T2CLqG7RaQ
+⚠ 480p 저화질 |      5,171 |   18s | 720x480 | StompdownWinFail | Doug Drealer filming fail | 1yxoPUAmYwQ
+⚠ 720p 저화질 |      3,509 |  152s | 1280x720 | Mik Milman | Canon 1V - Canon's Best Film Camera at the Venice Drum Circle // Some Photography Show // ep. 3 | fMKlJlSUsrg
+⚠ 480p 저화질 |        941 |  130s | 854x480 | DESIERofficial | DESIEЯ PHOTOSHOOTS 2013 | 0WeNG0Hdaow
+⚠ 480p 저화질 |        917 |   46s | 854x480 | Seth Grabel Magic | Epic Fail when doing the Cyr Wheel at Venice Beach California | 5NIwlME9WvA
+⚠ 480p 저화질 |        875 |  171s | 640x480 | Desertphile | Always use protection! (Selfie Edition) | J1JweOpMU24
+⚠ 720p 저화질 |        774 |  177s | 1280x720 | منتج حياتك | photo vision video wedding shoot out 10 minute challenge| الحلقة 100 | ChFqQBMxh34
+⚠ 720p 저화질 |        308 |   85s | 1280x720 | TIL | A man tried to take a loving selfie with his girlfriend. Creates pure evil instead. | PZeQdHhJW6c
+⚠ 720p 저화질 |        286 |  143s | 1280x720 | Richard Rosario Photography LLC | Maternity Photo Session Experience | HNRkSwwE9SM
+⚠ 720p 저화질 |        158 |  135s | 1280x720 | Lulume (This is LauraLu) | Taking A Selfie! | EzXWHWcr2Jg
+⚠ 720p 저화질 |        151 |   27s | 1280x720 | Haus von Fluffenstein | Lugosi the Cat hates Selfies! | QcqZJwohnyo
+⚠ 모음집 제목,360p 저화질 |        142 |  181s | 360x360 | Kural | Funny Videos Part - 7  beach fails | S4Z1NQVlHIQ
+⚠ 모음집 제목,720p 저화질 |        112 |   42s | 1280x720 | Giang Đào | Best Funny Videos   Vines, Selfie, Funny Pranks, Funny Fails, Funny Vines | yys_XI1bo10
+⚠ 모음 채널명,480p 저화질 |        106 |    7s | 600x480 | Funny Videos | The cute dog wanna take a selfie! | SZiq1VRv4UQ
+⚠ 480p 저화질 |        102 |   30s | 840x480 | DS | Selfie Disaster | _jxtHrHI8Xk
+⚠ 720p 저화질 |        100 |  101s | 1280x720 | California Beat Era | The Beach - Documentary (Trailer) | UHuH3FIj440
+⚠ 720p 저화질 |         89 |   36s | 1280x720 | Zackary Ford | Beach Photography Stock Photos | Zackary Ford | f6ZHl7GHL4E
+⚠ 360p 저화질 |         48 |   20s | 640x360 | TheSuperFailsTV | Stop Filming You Fail! | DBTubfsUBEY
+⚠ 720p 저화질 |         32 |  216s | 1280x720 | Smile Everywhere | FUNNY SELFIE FAILS   NEW! | b1rFL-kJsLU
+⚠ 360p 저화질 |         32 |  104s | 640x360 | Love Baby | Surprise Selfie Scare Prank MrJacgg | d-cInxA0qcw
+⚠ 720p 저화질 |         24 |  270s | 1280x720 | Funny News Center | 25+ Pics of kids ruining their parent's perfect photoshoot. | GB8obH4guRY
+⚠ 모음집 제목 |         24 |  265s | 1920x1080 | ComPlaytion | TOP RIGHT MOMENTS PHOTOS COMPILATION | _iWy43I1PE8
+⚠ 224p 저화질 |         20 |   27s | 398x224 | All Topic | How to take a perfect selfie with a girl... | zCJnv9jUAuQ
+⚠ 모음집 제목,720p 저화질 |         20 |  170s | 1280x720 | Fail Addict | Uncharted 4 Selfie! -  Funny Moments and Glitches | Games Funny Moments #2 | 2jjQOH38-gQ
+⚠ 720p 저화질 |         16 |  282s | 1280x720 | CHILLMOVIESHD | PHOTOS TAKEN JUST AT THE RIGHT TIME FUNNY PICS!! | vHGL19NsdWw
+⚠ 모음집 제목,모음 채널명,360p 저화질 |         15 |   41s | 640x360 | funny videos | Best Funny Videos   Vines, Funny Fails, Selfie, Funny Pranks and Funny Vines | IzEFpeHawbE
+⚠ 720p 저화질 |         15 |  212s | 1280x720 | BUZZTV. International (#BETHEBUZZ) | BUZZTV South Africa - Buzz Team Beach Madness - Photoshoot GONE WRONG #BUZZTV | mV33gDWXc5Q
+⚠ 720p 저화질 |         13 |  136s | 1280x720 | news star 24/7 | 28 Hottest ‘I Woke Up Like This’ Selfies From Your Favorite Stars: Kylie Jenner & More | COdQr_CLF0o
+⚠ 720p 저화질 |         12 |   23s | 1280x720 | Randy Traxler | Posing for avideo--Epic fail.AVI | q1czNzz-yjk
+⚠ 288p 저화질 |         10 |   20s | 352x288 | funny life | crazy beach boat | LVSRHLCU0ZI
+⚠ 모음집 제목,720p 저화질 |          4 |   36s | 1280x720 | Giang Đào | Funny Videos   Vines, Selfie, Funny Fails, Funny Pranks and Funny Vines | MlZx11G-Qcw
+⚠ 852p 저화질 |          0 |   73s | 480x852 | Memes Album | Photoshoot kardo prank on boys gone wrong | KDniow_C9C8
+⚠ 모음집 제목 |          0 |   23s | 1920x1080 | None Edit by Caillou Wang 王靖凱 | RIDICULOUS CINEMATIC MOMENTS & FILMING FAILS 2 | hMkidcVM9Tg

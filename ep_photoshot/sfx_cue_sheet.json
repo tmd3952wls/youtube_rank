@@ -1,0 +1,654 @@
+{
+  "version": "1.0",
+  "video_path": "C:\\Users\\tmd39\\Desktop\\youtube_rank\\ep_photoshot\\final.mp4",
+  "video_duration_sec": 34.395,
+  "fps": 30.0,
+  "created_at": "2026-11-14T15:11:44.299630+00:00",
+  "director_model": "gemini-verified-frame-exact-sync",
+  "video_summary_ko": "레퍼런스 7편 및 1,200만 뷰 검증 주제('인생샷 찍으려다 대참사') 기반: 0~3초 해변 비키니 화보 파도 참사 훅부터 1등 설원 카메라 정면 박살까지 단조 상승 구성 + 카메라 초점/셔터·물첨벙·충돌음·전환음 100% 프레임 피크 동기화",
+  "hook_analysis_ko": "0.00~3.95초 해변 비키니 모델 포즈(시선 집중) 직후 초점음(1.18s)·셔터음(1.78s)과 동시에 덮치는 거대 파도 타격(2.18s, 피크 정렬)으로 스크롤 정지 유도",
+  "cues": [
+    {
+      "cue_id": "cue_001",
+      "timestamp_str": "00:01.18",
+      "timestamp_sec": 1.18,
+      "frame_index": 35,
+      "trigger_type": "hook_3s",
+      "category": "pop_ui",
+      "sound_concept_ko": "7등 '비키니 화보' — 카메라 자동초점 전자음 (삐빅)",
+      "search_keywords_ko": [
+        "카메라 초점음 1"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "7등 '비키니 화보' 프레임 정밀 동기화 (clip+1.18s)",
+      "align_to_peak": true,
+      "intensity": 0.42,
+      "max_duration_sec": 1.5,
+      "rank_context": 7,
+      "matched_sfx_id": "517_카메라 초점음 1",
+      "matched_file": "517_카메라 초점음 1.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_002",
+      "timestamp_str": "00:01.78",
+      "timestamp_sec": 1.78,
+      "frame_index": 53,
+      "trigger_type": "hook_3s",
+      "category": "pop_ui",
+      "sound_concept_ko": "7등 '비키니 화보' — 카메라 셔터 촬영음 (찰칵)",
+      "search_keywords_ko": [
+        "찰칵 (카메라)"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "7등 '비키니 화보' 프레임 정밀 동기화 (clip+1.78s)",
+      "align_to_peak": true,
+      "intensity": 0.48,
+      "max_duration_sec": 1.5,
+      "rank_context": 7,
+      "matched_sfx_id": "018_찰칵 (카메라)",
+      "matched_file": "018_찰칵 (카메라).mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_003",
+      "timestamp_str": "00:02.18",
+      "timestamp_sec": 2.18,
+      "frame_index": 65,
+      "trigger_type": "hook_3s",
+      "category": "water_liquid",
+      "sound_concept_ko": "7등 '비키니 화보' — 거대 파도 타격 물 첨벙 사운드",
+      "search_keywords_ko": [
+        "물 첨벙 2"
+      ],
+      "search_keywords_en": [
+        "water_liquid"
+      ],
+      "generation_prompt_en": "Realistic water_liquid sound effect",
+      "visual_reason_ko": "7등 '비키니 화보' 프레임 정밀 동기화 (clip+2.18s)",
+      "align_to_peak": true,
+      "intensity": 0.64,
+      "max_duration_sec": 1.5,
+      "rank_context": 7,
+      "matched_sfx_id": "0745_물 첨벙 2",
+      "matched_file": "0745_물 첨벙 2.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_004",
+      "timestamp_str": "00:04.11",
+      "timestamp_sec": 4.11,
+      "frame_index": 123,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "7등→6등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "7등 종료 및 6등 진입 경계 (4.11s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 6,
+      "matched_sfx_id": "089_후욱 -b중간2",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_005",
+      "timestamp_str": "00:05.42",
+      "timestamp_sec": 5.42,
+      "frame_index": 163,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "6등 '버스킹 촬영' — 짧고 묵직한 물리 타격 강조음",
+      "search_keywords_ko": [
+        "훅"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "6등 '버스킹 촬영' 프레임 정밀 동기화 (clip+1.20s)",
+      "align_to_peak": true,
+      "intensity": 0.52,
+      "max_duration_sec": 1.5,
+      "rank_context": 6,
+      "matched_sfx_id": "190_훅",
+      "matched_file": "190_훅.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_006",
+      "timestamp_str": "00:08.73",
+      "timestamp_sec": 8.73,
+      "frame_index": 262,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "6등→5등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "6등 종료 및 5등 진입 경계 (8.73s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 5,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_007",
+      "timestamp_str": "00:09.89",
+      "timestamp_sec": 9.89,
+      "frame_index": 297,
+      "trigger_type": "action_impact",
+      "category": "pop_ui",
+      "sound_concept_ko": "5등 '치명적인 척' — 카메라 셔터 촬영음 (찰칵)",
+      "search_keywords_ko": [
+        "찰칵 (카메라)"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "5등 '치명적인 척' 프레임 정밀 동기화 (clip+1.05s)",
+      "align_to_peak": true,
+      "intensity": 0.45,
+      "max_duration_sec": 1.5,
+      "rank_context": 5,
+      "matched_sfx_id": "018_찰칵 (카메라)",
+      "matched_file": "018_찰칵 (카메라).mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_008",
+      "timestamp_str": "00:10.86",
+      "timestamp_sec": 10.86,
+      "frame_index": 326,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "5등 '치명적인 척' — 묵직한 저음 충돌·전환 임팩트 (쿵)",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "5등 '치명적인 척' 프레임 정밀 동기화 (clip+2.02s)",
+      "align_to_peak": true,
+      "intensity": 0.48,
+      "max_duration_sec": 1.5,
+      "rank_context": 5,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_009",
+      "timestamp_str": "00:12.35",
+      "timestamp_sec": 12.35,
+      "frame_index": 370,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "5등→4등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "5등 종료 및 4등 진입 경계 (12.35s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 4,
+      "matched_sfx_id": "089_후욱 -b중간2",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_010",
+      "timestamp_str": "00:12.94",
+      "timestamp_sec": 12.94,
+      "frame_index": 388,
+      "trigger_type": "action_impact",
+      "category": "pop_ui",
+      "sound_concept_ko": "4등 '낙타랑 셀카' — 카메라 자동초점 전자음 (삐빅)",
+      "search_keywords_ko": [
+        "카메라 초점음 1"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "4등 '낙타랑 셀카' 프레임 정밀 동기화 (clip+0.48s)",
+      "align_to_peak": true,
+      "intensity": 0.44,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "517_카메라 초점음 1",
+      "matched_file": "517_카메라 초점음 1.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_011",
+      "timestamp_str": "00:13.78",
+      "timestamp_sec": 13.78,
+      "frame_index": 413,
+      "trigger_type": "action_impact",
+      "category": "pop_ui",
+      "sound_concept_ko": "4등 '낙타랑 셀카' — 카메라 셔터 촬영음 (찰칵)",
+      "search_keywords_ko": [
+        "찰칵 (카메라)"
+      ],
+      "search_keywords_en": [
+        "pop_ui"
+      ],
+      "generation_prompt_en": "Realistic pop_ui sound effect",
+      "visual_reason_ko": "4등 '낙타랑 셀카' 프레임 정밀 동기화 (clip+1.32s)",
+      "align_to_peak": true,
+      "intensity": 0.5,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "018_찰칵 (카메라)",
+      "matched_file": "018_찰칵 (카메라).mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_012",
+      "timestamp_str": "00:14.31",
+      "timestamp_sec": 14.31,
+      "frame_index": 429,
+      "trigger_type": "action_impact",
+      "category": "voice_reaction",
+      "sound_concept_ko": "4등 '낙타랑 셀카' — 낙타 기습 입질 순간 경악 리액션",
+      "search_keywords_ko": [
+        "뜨헉!"
+      ],
+      "search_keywords_en": [
+        "voice_reaction"
+      ],
+      "generation_prompt_en": "Realistic voice_reaction sound effect",
+      "visual_reason_ko": "4등 '낙타랑 셀카' 프레임 정밀 동기화 (clip+1.85s)",
+      "align_to_peak": true,
+      "intensity": 0.46,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "026_뜨헉!",
+      "matched_file": "026_뜨헉!.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_013",
+      "timestamp_str": "00:14.31",
+      "timestamp_sec": 14.31,
+      "frame_index": 429,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "4등 '낙타랑 셀카' — 짧고 묵직한 물리 타격 강조음",
+      "search_keywords_ko": [
+        "훅"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "4등 '낙타랑 셀카' 프레임 정밀 동기화 (clip+1.85s)",
+      "align_to_peak": true,
+      "intensity": 0.58,
+      "max_duration_sec": 1.5,
+      "rank_context": 4,
+      "matched_sfx_id": "190_훅",
+      "matched_file": "190_훅.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_014",
+      "timestamp_str": "00:15.92",
+      "timestamp_sec": 15.92,
+      "frame_index": 478,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "4등→3등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "4등 종료 및 3등 진입 경계 (15.92s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 3,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_015",
+      "timestamp_str": "00:19.75",
+      "timestamp_sec": 19.75,
+      "frame_index": 592,
+      "trigger_type": "action_impact",
+      "category": "whoosh",
+      "sound_concept_ko": "3등 '수영장 촬영' — 빠른 공기 가름 스우시 전환음",
+      "search_keywords_ko": [
+        "후욱 -b중간1"
+      ],
+      "search_keywords_en": [
+        "whoosh"
+      ],
+      "generation_prompt_en": "Realistic whoosh sound effect",
+      "visual_reason_ko": "3등 '수영장 촬영' 프레임 정밀 동기화 (clip+3.72s)",
+      "align_to_peak": true,
+      "intensity": 0.52,
+      "max_duration_sec": 1.5,
+      "rank_context": 3,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_016",
+      "timestamp_str": "00:20.53",
+      "timestamp_sec": 20.53,
+      "frame_index": 616,
+      "trigger_type": "action_impact",
+      "category": "water_liquid",
+      "sound_concept_ko": "3등 '수영장 촬영' — 수영장 입수 물 첨벙 사운드",
+      "search_keywords_ko": [
+        "물 첨벙 1"
+      ],
+      "search_keywords_en": [
+        "water_liquid"
+      ],
+      "generation_prompt_en": "Realistic water_liquid sound effect",
+      "visual_reason_ko": "3등 '수영장 촬영' 프레임 정밀 동기화 (clip+4.50s)",
+      "align_to_peak": true,
+      "intensity": 0.65,
+      "max_duration_sec": 1.5,
+      "rank_context": 3,
+      "matched_sfx_id": "0643_물 첨벙 1",
+      "matched_file": "0643_물 첨벙 1.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_017",
+      "timestamp_str": "00:21.89",
+      "timestamp_sec": 21.89,
+      "frame_index": 657,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "3등→2등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "3등 종료 및 2등 진입 경계 (21.89s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 2,
+      "matched_sfx_id": "089_후욱 -b중간2",
+      "matched_file": "089_후욱 -b중간2.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_018",
+      "timestamp_str": "00:23.15",
+      "timestamp_sec": 23.15,
+      "frame_index": 694,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "2등 '숲속 점프샷' — 짧고 묵직한 물리 타격 강조음",
+      "search_keywords_ko": [
+        "훅"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "2등 '숲속 점프샷' 프레임 정밀 동기화 (clip+1.15s)",
+      "align_to_peak": true,
+      "intensity": 0.48,
+      "max_duration_sec": 1.5,
+      "rank_context": 2,
+      "matched_sfx_id": "190_훅",
+      "matched_file": "190_훅.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_019",
+      "timestamp_str": "00:24.15",
+      "timestamp_sec": 24.15,
+      "frame_index": 724,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "2등 '숲속 점프샷' — 묵직한 저음 충돌·전환 임팩트 (쿵)",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "2등 '숲속 점프샷' 프레임 정밀 동기화 (clip+2.15s)",
+      "align_to_peak": true,
+      "intensity": 0.46,
+      "max_duration_sec": 1.5,
+      "rank_context": 2,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_020",
+      "timestamp_str": "00:28.66",
+      "timestamp_sec": 28.66,
+      "frame_index": 860,
+      "trigger_type": "cut_transition",
+      "category": "whoosh",
+      "sound_concept_ko": "2등→1등 암전 스우시 + 첫 프레임 묵직한 쿵 전환",
+      "search_keywords_ko": [
+        "후욱",
+        "쿵"
+      ],
+      "search_keywords_en": [
+        "transition whoosh",
+        "low boom"
+      ],
+      "generation_prompt_en": "Low cinematic transition whoosh into heavy boom hit",
+      "visual_reason_ko": "2등 종료 및 1등 진입 경계 (28.66s)",
+      "align_to_peak": true,
+      "intensity": 0.8,
+      "max_duration_sec": 1.2,
+      "rank_context": 1,
+      "matched_sfx_id": "086_후욱 -b중간1",
+      "matched_file": "086_후욱 -b중간1.mp3 + 007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.0,
+      "computed_linear_gain": null
+    },
+    {
+      "cue_id": "cue_021",
+      "timestamp_str": "00:33.05",
+      "timestamp_sec": 33.05,
+      "frame_index": 991,
+      "trigger_type": "action_impact",
+      "category": "impact",
+      "sound_concept_ko": "1등 '카메라 박살' — 묵직한 저음 충돌·전환 임팩트 (쿵)",
+      "search_keywords_ko": [
+        "쿵 효과음"
+      ],
+      "search_keywords_en": [
+        "impact"
+      ],
+      "generation_prompt_en": "Realistic impact sound effect",
+      "visual_reason_ko": "1등 '카메라 박살' 프레임 정밀 동기화 (clip+4.28s)",
+      "align_to_peak": true,
+      "intensity": 0.65,
+      "max_duration_sec": 1.5,
+      "rank_context": 1,
+      "matched_sfx_id": "007_쿵 효과음",
+      "matched_file": "007_쿵 효과음.mp3",
+      "matched_source": null,
+      "match_score": null,
+      "sfx_peak_time_sec": 0.0,
+      "playback_start_sec": 0.0,
+      "overlaps_voice": true,
+      "target_db_relative_to_voice": -15.5,
+      "computed_linear_gain": null
+    }
+  ]
+}
