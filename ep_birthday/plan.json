@@ -1,0 +1,203 @@
+{
+  "template": "black",
+  "header_style": "gradient",
+  "hook_text": "",
+  "title": "즐거운 생일잔치",
+  "subtitle": "랭킹 TOP 6",
+  "title_size": 104,
+  "subtitle_size": 100,
+  "title_y": 182,
+  "subtitle_y": 276,
+  "video_top": 342,
+  "video_area_h": 1438,
+  "video_min_h": 1438,
+  "video_max_h": 1438,
+  "list_y": 418,
+  "rank_word_until": 3,
+  "list_alpha": 0.9,
+  "sub_anim": "none",
+  "sub_y": 1270,
+  "gap": 0.0,
+  "end_gap": 1.0,
+  "transition_mode": "clean_drop",
+  "clean_drop": {
+    "sfx": "007_쿵 효과음",
+    "vol": 0.9
+  },
+  "bgm_rms_db": -24,
+  "items": [
+    {
+      "rank": 6,
+      "label": "케이크 증정식",
+      "src": "raw/y08.mp4",
+      "start": 28.6,
+      "end": 32.1,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.4,
+          "text": "(생일 케이크 증정)"
+        },
+        {
+          "at": 3.1,
+          "dur": 0.4,
+          "text": "(..)",
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "label": "첫 촛불",
+      "src": "raw/y09.mp4",
+      "start": 43.0,
+      "end": 46.6,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.2,
+          "text": "(첫 촛불 체험)"
+        },
+        {
+          "at": 2.3,
+          "dur": 1.3,
+          "text": "뜨@거!!",
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "label": "촛불 강탈",
+      "src": "raw/y02.mp4",
+      "start": 37.5,
+      "end": 47.3,
+      "subs": [
+        {
+          "at": 0.2,
+          "dur": 2.0,
+          "text": "(생일 주인공 2살)"
+        },
+        {
+          "at": 2.4,
+          "dur": 2.0,
+          "text": "(불 끄기 모름)"
+        },
+        {
+          "at": 4.6,
+          "dur": 1.8,
+          "text": "\"후~ 해봐 후~\""
+        },
+        {
+          "at": 6.6,
+          "dur": 1.3,
+          "text": "(..)"
+        },
+        {
+          "at": 9.3,
+          "dur": 0.5,
+          "text": "[r:형 ON]",
+          "box": false
+        }
+      ],
+      "fx": [
+        {
+          "at": 9.0,
+          "sfx": "144_띠용(빠른)",
+          "vol": 0.7
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "소원 대신",
+      "src": "raw/y19.mp4",
+      "start": 6.3,
+      "end": 10.0,
+      "gap": 0.7,
+      "volume": 0.3,
+      "subs": [
+        {
+          "at": 0.05,
+          "dur": 0.45,
+          "text": "(소원 빌고)"
+        },
+        {
+          "at": 1.6,
+          "dur": 1.0,
+          "text": "?",
+          "box": false
+        },
+        {
+          "at": 3.4,
+          "dur": 0.3,
+          "text": "(한 입 더)"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "기습 페이스",
+      "src": "raw/y03.mp4",
+      "start": 2.0,
+      "end": 9.8,
+      "gap": 0.7,
+      "volume": 0.8,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 2.0,
+          "text": "(소원 비는 중)"
+        },
+        {
+          "at": 3.6,
+          "dur": 0.9,
+          "text": "미@친.."
+        },
+        {
+          "at": 4.9,
+          "dur": 1.0,
+          "text": "(오바마 ON)"
+        },
+        {
+          "at": 5.95,
+          "dur": 0.35,
+          "text": "또..?",
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "label": "정체불명",
+      "src": "raw/y16.mp4",
+      "start": 103.0,
+      "end": 111.0,
+      "gap": 0.8,
+      "subs": [
+        {
+          "at": 0.2,
+          "dur": 2.3,
+          "text": "(촛불 50개 점화)"
+        },
+        {
+          "at": 2.7,
+          "dur": 0.8,
+          "text": "(..)",
+          "box": false
+        },
+        {
+          "at": 3.7,
+          "dur": 1.4,
+          "text": "이거 맞아?"
+        },
+        {
+          "at": 5.4,
+          "dur": 2.6,
+          "text": "(소방서에 전화할까)",
+          "anim": "typewriter"
+        }
+      ]
+    }
+  ]
+}

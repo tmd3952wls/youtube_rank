@@ -196,3 +196,11 @@ python rank_short/make_rank.py render ep_water/plan.json --auto-sfx
 python rank_short/make_rank.py render ep_water/plan.json --no-auto-sfx
 ```
 상세 에이전트 운용 지침은 루트의 `GEMINI.md`와 `AGENTS.md`를 참고하세요.
+
+## 암전·자막 확장 (2026-11-16, 레퍼런스 8편 공식)
+- 클립별 `"gap"`: 그 클립 **앞** 암전(초). `0` = 하드컷, 미지정 = 최상위 `"gap"`.
+- 최상위 `"end_gap"` (기본 0.9): 1위 뒤 완성 순위표가 남은 검은 화면 → 첫 장면으로 루프. `0` 이면 없음.
+- `"transition_mode": "clean_drop"`: 오프닝·순위 경계·엔딩 암전 진입에 저음 드롭 1종만 (`"clean_drop": {"sfx": "007_쿵 효과음", "vol": 0.9}`).
+- 자막 `"anim": "typewriter"` (dur 의 75% 동안 한 글자씩), `"box": false` (외곽선 글자만), `"a|b|c"` 여러 줄은 경고 없음.
+- TOP6~7 에서 장호흡 클립(9~12초) 1개·초단타 클립(2.5~3.8초) 1개는 길이 경고 없음.
+- 편집 6대 법칙은 루트 `CLAUDE.md`.

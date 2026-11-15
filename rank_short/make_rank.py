@@ -71,7 +71,11 @@ DEFAULTS = {
     "subtitle": None,          # None → "랭킹 TOP{N}"
     "hook_text": "(다들 몇 번이 제일 좋아?)",  # 제목 위 작은 질문 한 줄 (black 템플릿, "" = 없음)
     "fps": 30,
-    "gap": 0.25,               # 순위 사이 검은 화면 (초). 0 이면 없음
+    "gap": 0.25,               # 순위 사이 검은 화면 (초). 0 이면 없음. 클립마다 "gap" 으로 바꿈 (그 클립 '앞' 암전)
+    "end_gap": 0.9,            # 1위가 끝난 뒤 검은 화면 (완성 순위표 유지) → 0.0초 첫 장면으로 루프. 0 이면 없음
+    "transition_mode": "default",  # "clean_drop" = 전환·오프닝·엔딩에 저음 드롭 1종만 정점 정렬
+    "clean_drop": {"sfx": "007_쿵 효과음", "vol": 0.9},
+    "end_sfx": None,           # 엔딩 암전 시작 소리 (None = clean_drop 이면 드롭, 아니면 transition 의 hit)
     "video_top": 348,          # 영상 칸 시작 y
     "video_area_h": 1348,      # 영상 칸 높이 (black: 348~1696, 아래는 검정 띠)
     "video_min_h": 1348,       # 가로 영상도 칸을 꽉 채움(좌우 잘림). 덜 자르려면 클립에 "box_h"
@@ -160,8 +164,11 @@ def load_plan(path):
             raise SystemExit(f"클립이 없습니다: {it['src']}")
     for it in items:
         for s in it.get("subs", []):
-            words = s["text"].replace("|", " ").split()
-            if "|" in s["text"] or len(words) > cfg["sub_max_words"]:
+            # "|" 로 나눈 여러 줄(3줄 괴성 팝업 등)은 의도된 연출이라 경고하지 않음
+            if "|" in s["text"]:
+                continue
+            words = s["text"].split()
+            if len(words) > cfg["sub_max_words"]:
                 print(f"  ⚠ {it['rank']}등 자막이 깁니다 (한 줄 {cfg['sub_max_words']}어절 이하 권장): {s['text']}")
     ranks = [it["rank"] for it in items]
     if sorted(ranks) != list(range(1, n + 1)):
@@ -170,12 +177,19 @@ def load_plan(path):
     if not 3 <= n <= 7:
         print(f"  ⚠ 순위가 {n}개입니다 (3~7개 권장)")
     lo, hi = CLIP_LEN.get(n, (3.5, 6.0))
+    # TOP6~7: 에피소드당 장호흡 클립(9~12초) 1개와 초단타 클립(2.5~3.8초) 1개는 의도된 리듬 변주로 봄
+    vary = {"long": (9.0, 12.0), "short": (2.5, 3.8)} if n >= 6 else {}
+    used = set()
     for it in items:
         d = float(it.get("end", 0)) - float(it.get("start", 0))
         if it.get("slow"):
             a, b, f = it["slow"]
             d += (b - a) * (f - 1)
         if d > 0 and not lo * 0.8 <= d <= hi * 1.25:
+            kind = next((k for k, (a, b) in vary.items() if a <= d <= b and k not in used), None)
+            if kind:
+                used.add(kind)
+                continue
             print(f"  ⚠ {it['rank']}등 클립 {d:.1f}초 — TOP{n} 이면 {lo:.0f}~{hi:.0f}초 정도가 맞습니다")
     return path, cfg, items
 
@@ -428,30 +442,53 @@ def sub_spans(line):
     return out
 
 
-def sub_image(text, cfg):
-    """검은 박스 + 글자. [y:..] 노랑, [r:..] 빨강 등 단어별 색."""
+def sub_image(text, cfg, box=True, upto=None):
+    """검은 박스 + 글자. [y:..] 노랑, [r:..] 빨강 등 단어별 색.
+    box=False: 박스 없이 두꺼운 검정 외곽선 글자만 (뇌정지 리액션 ??????).
+    upto=k: 앞에서부터 k 글자만 그림 (typewriter 용, 캔버스 크기는 전체 기준 그대로)."""
     f = sub_font(cfg["sub_size"])
     lines = [sub_spans(l) for l in text.split("|")]
     lh = int(cfg["sub_size"] * 1.3)
     widths = [sum(f.getlength(s) for s, _ in ln) for ln in lines]
     tw = int(max(widths))
-    px, py = 18, 10
-    img = Image.new("RGBA", (tw + px * 2, lh * len(lines) + py * 2), (0, 0, 0, 225))
+    stroke = 0 if box else max(3, int(cfg["sub_size"] * 0.12))
+    px, py = 18 + stroke, 10 + stroke
+    img = Image.new("RGBA", (tw + px * 2, lh * len(lines) + py * 2), (0, 0, 0, 225 if box else 0))
     dd = ImageDraw.Draw(img)
+    left = upto if upto is not None else 10 ** 9
     for i, (ln, lw) in enumerate(zip(lines, widths)):
         x = (img.width - lw) / 2
         for s, c in ln:
-            dd.text((x, py + lh * i + lh // 2), s, font=f, fill=hex_rgb(c), anchor="lm")
+            shown = s[:max(left, 0)]
+            left -= len(s)
+            if shown:
+                dd.text((x, py + lh * i + lh // 2), shown, font=f, fill=hex_rgb(c), anchor="lm",
+                        stroke_width=stroke, stroke_fill=(0, 0, 0))
             x += f.getlength(s)
     return img
 
 
-def sub_anim_frames(img, anim, fps, tmp, tag):
+def sub_len(text):
+    """typewriter 로 칠 글자 수 (색 표시 [y:..] 와 줄바꿈 | 제외)."""
+    return sum(len(s) for l in text.split("|") for s, _ in sub_spans(l))
+
+
+def sub_anim_frames(img, anim, fps, tmp, tag, text=None, cfg=None, dur=None, box=True):
     """자막 등장 애니메이션 PNG 시퀀스 (고정 캔버스, 마지막 프레임 유지).
-    pop: 작게→크게 튕김 / shake: 좌우 흔들림 / drop: 위에서 떨어져 통통 / zoom: 크게→제자리 쾅 / none"""
+    pop: 작게→크게 튕김 / shake: 좌우 흔들림 / drop: 위에서 떨어져 통통 / zoom: 크게→제자리 쾅 / none
+    typewriter: dur*0.75 동안 왼쪽부터 한 글자씩 채워지고 남은 시간 유지 (text·cfg·dur 필요)"""
     import math
     pad = int(max(img.size) * 0.35) + 30
     cw, ch = img.width + pad * 2, img.height + pad * 2
+    if anim == "typewriter" and text is not None and cfg is not None:
+        total = max(1, sub_len(text))
+        n = max(2, int(round(float(dur or 1.2) * 0.75 * fps)))
+        for k in range(n):
+            upto = int(math.ceil(total * (k + 1) / n))
+            fr = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+            fr.alpha_composite(sub_image(text, cfg, box=box, upto=upto), (pad, pad))
+            fr.save(tmp / f"sa_{tag}_{k:03d}.png")
+        return tmp / f"sa_{tag}_%03d.png", pad
     dur = {"pop": 0.28, "shake": 0.45, "drop": 0.35, "zoom": 0.22, "none": 0.04}.get(anim, 0.28)
     n = max(2, int(round(dur * fps)))
     for k in range(n):
@@ -668,9 +705,11 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
           f"[v1a][lab]overlay={lab_x}:{lab_y}:eof_action=repeat[v1]"]
     last = "v1"
     for j, s in enumerate(it.get("subs", [])):
-        img = sub_image(s["text"], cfg)
+        box = s.get("box", True) is not False
+        img = sub_image(s["text"], cfg, box=box)
         anim = s.get("anim", cfg["sub_anim"])
-        pat, pad = sub_anim_frames(img, anim, cfg["fps"], tmp, f"{idx:02d}_{j:02d}")
+        pat, pad = sub_anim_frames(img, anim, cfg["fps"], tmp, f"{idx:02d}_{j:02d}",
+                                   text=s["text"], cfg=cfg, dur=float(s.get("dur", 1.2)), box=box)
         cmd += ["-framerate", str(cfg["fps"]), "-i", str(pat)]
         a = float(s.get("at", 0))
         b = a + float(s.get("dur", 1.2))
@@ -703,10 +742,18 @@ ENC = ["-c:v", "libx264", "-preset", "slow", "-crf", "16", "-tune", "film", "-pi
        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2"]
 
 
-def render_gap(cfg, items, idx, tmp, out):
+def item_gap(cfg, items, i):
+    """i 번째 클립 '앞' 암전 길이 (클립의 "gap" → 없으면 최상위 gap). 첫 클립 앞은 없음."""
+    if i <= 0:
+        return 0.0
+    g = items[i].get("gap")
+    return max(float(cfg["gap"] if g is None else g), 0.0)
+
+
+def render_gap(cfg, items, idx, tmp, out, g=None):
     """idx 번째 순위가 끝난 뒤 검은 화면 (그때까지 공개된 순위표만)."""
     ov = item_frames(cfg, items, idx, tmp)
-    g = cfg["gap"]
+    g = cfg["gap"] if g is None else g
     run(["ffmpeg", "-y", "-v", "error",
          "-f", "lavfi", "-i", f"color=black:s={W}x{H}:r={cfg['fps']}:d={g}",
          "-loop", "1", "-i", str(ov),
@@ -794,13 +841,28 @@ def sfx_events(cfg, items, starts, ends, plan_dir):
 
     tr = cfg.get("transition") or {}
     whooshes = tr.get("whoosh") or []
-    for i in range(len(items)):
-        if whooshes and (i > 0 or tr.get("whoosh_first", True)):
-            # 휙: 검은 화면 한가운데에서 가장 크게 (첫 클립은 시작 직후)
-            peak_at = (ends[i - 1] + starts[i]) / 2 if i > 0 else 0.12
-            add(whooshes[i % len(whooshes)], peak_at, tr.get("whoosh_vol", 0.8), True)
-        if tr.get("hit") and i > 0:
-            add(tr["hit"], starts[i], tr.get("hit_vol", 0.45), True)  # 쿵: 다음 영상이 뜨는 순간
+    end_at = ends[-1]  # 1위 칼컷 = 엔딩 암전 시작
+    has_end = float(cfg.get("end_gap") or 0) > 0
+    if cfg.get("transition_mode") == "clean_drop":
+        # 저음 드롭 1종만: 0.0초 오프닝, 순위 경계(암전이면 암전 진입, 하드컷이면 컷), 엔딩 암전 진입
+        cd = cfg.get("clean_drop") or {}
+        name, vol = cd.get("sfx", "007_쿵 효과음"), float(cd.get("vol", 0.9))
+        add(name, 0.0, vol, True)
+        for i in range(1, len(items)):
+            add(name, ends[i - 1], vol, True)
+        if has_end:
+            add(cfg.get("end_sfx") or name, end_at, vol, True)
+    else:
+        for i in range(len(items)):
+            if whooshes and (i > 0 or tr.get("whoosh_first", True)):
+                # 휙: 검은 화면 한가운데에서 가장 크게 (첫 클립은 시작 직후, 하드컷이면 컷 순간)
+                peak_at = (ends[i - 1] + starts[i]) / 2 if i > 0 else 0.12
+                add(whooshes[i % len(whooshes)], peak_at, tr.get("whoosh_vol", 0.8), True)
+            if tr.get("hit") and i > 0:
+                add(tr["hit"], starts[i], tr.get("hit_vol", 0.45), True)  # 쿵: 다음 영상이 뜨는 순간
+        end_name = cfg.get("end_sfx") or tr.get("hit") or (whooshes[0] if whooshes else None)
+        if has_end and end_name:
+            add(end_name, end_at, tr.get("hit_vol", 0.5), True)  # 마감 저음: 엔딩 암전 진입
     for i, it in enumerate(items):
         for fx in it.get("fx", []):
             add(fx["sfx"], starts[i] + float(fx["at"]), float(fx.get("vol", 1.0)), fx.get("peak", False),
@@ -846,15 +908,21 @@ def cmd_render(a):
         parts, starts, ends, t = [], [], [], 0.0
         for i, it in enumerate(items):
             print(f"[{i + 1}/{len(items)}] {it['rank']}등 {it.get('label', '')}  ← {it['src'].name}")
+            gi = item_gap(cfg, items, i)  # 이 클립 앞 암전 (0 = 하드컷)
+            if gi > 0:
+                g = tmp / f"gap_{i - 1:02d}.mp4"
+                t += render_gap(cfg, items, i - 1, tmp, g, gi)
+                parts.append(g)
             p = tmp / f"part_{i:02d}.mp4"
             starts.append(t)
             t += render_item(cfg, items, i, tmp, p)
             ends.append(t)
             parts.append(p)
-            if cfg["gap"] > 0 and i < len(items) - 1:
-                g = tmp / f"gap_{i:02d}.mp4"
-                t += render_gap(cfg, items, i, tmp, g)
-                parts.append(g)
+        eg = float(cfg.get("end_gap") or 0)
+        if eg > 0:  # 엔딩 루프 암전: 완성된 순위표 유지
+            g = tmp / "gap_end.mp4"
+            t += render_gap(cfg, items, len(items) - 1, tmp, g, eg)
+            parts.append(g)
         lst = tmp / "list.txt"
         lst.write_text("".join(f"file '{p.as_posix()}'\n" for p in parts), encoding="utf-8")
         joined = tmp / "joined.mp4"
@@ -943,7 +1011,9 @@ def cmd_render(a):
         m = json.loads(r.stderr[r.stderr.rindex("{"): r.stderr.rindex("}") + 1])
         ln += (f":measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
                f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
-        fc.append(f"{mixed},{ln},aresample=48000,aformat=sample_rates=48000:channel_layouts=stereo[aout]")
+        # 마지막 안전 리미터: loudnorm 이 선형 모드를 못 쓸 때 정점이 0dB 를 넘는 것 방지 (-2.5 dBFS, AAC 인코딩 오버슈트 여유)
+        fc.append(f"{mixed},{ln},alimiter=limit=0.75:attack=1:release=50:level=false,"
+                  f"aresample=48000,aformat=sample_rates=48000:channel_layouts=stereo[aout]")
         cmd += ["-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[aout]",
                 "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart", str(out)]
         run(cmd)
