@@ -1,0 +1,236 @@
+{
+  "template": "black",
+  "header_style": "gradient",
+  "hook_text": "",
+  "title": "겨울 눈밭 대참사",
+  "subtitle": "랭킹 TOP 6",
+  "title_size": 104,
+  "subtitle_size": 100,
+  "title_y": 182,
+  "subtitle_y": 276,
+  "video_top": 342,
+  "video_area_h": 1438,
+  "video_min_h": 1438,
+  "video_max_h": 1438,
+  "list_y": 418,
+  "rank_word_until": 3,
+  "list_alpha": 0.9,
+  "sub_anim": "none",
+  "sub_y": 1270,
+  "gap": 0.0,
+  "end_gap": 1.0,
+  "transition_mode": "clean_drop",
+  "clean_drop": {
+    "sfx": "007_쿵 효과음",
+    "vol": 0.9
+  },
+  "items": [
+    {
+      "rank": 6,
+      "label": "튜브 썰매",
+      "src": "raw/y02.mp4",
+      "start": 4.3,
+      "end": 7.6,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.6,
+          "text": "(눈썰매 신난 아저씨)"
+        },
+        {
+          "at": 2.75,
+          "dur": 0.55,
+          "text": "(..)",
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "label": "빙판 미끄럼틀",
+      "src": "raw/y16.mp4",
+      "start": 4.4,
+      "end": 9.6,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.2,
+          "text": "(마당 빙판 체험)"
+        },
+        {
+          "at": 1.4,
+          "dur": 0.9,
+          "text": "\"살짝만~\""
+        },
+        {
+          "at": 2.9,
+          "dur": 2.2,
+          "text": "(멈출 생각 없음)"
+        }
+      ],
+      "fx": [
+        {
+          "at": 2.3,
+          "sfx": "144_띠용(빠른)",
+          "vol": 0.6
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "label": "아빠 출격",
+      "src": "raw/y07.mp4",
+      "start": 71.8,
+      "end": 80.2,
+      "volume": 0,
+      "subs": [
+        {
+          "at": 0.2,
+          "dur": 1.8,
+          "text": "(이번엔 아빠 차례)"
+        },
+        {
+          "at": 2.1,
+          "dur": 1.5,
+          "text": "(자신감 [y:MAX])"
+        },
+        {
+          "at": 7.1,
+          "dur": 1.3,
+          "text": "착@지 실패",
+          "box": false
+        }
+      ],
+      "fx": [
+        {
+          "at": 0.0,
+          "sfx": "1414_겨울 눈 바람소리 1",
+          "vol": 0.5,
+          "dur": 8.4
+        },
+        {
+          "at": 2.6,
+          "sfx": "0843_눈 밟는 발자국 소리 2",
+          "vol": 0.5,
+          "dur": 1.5
+        },
+        {
+          "at": 6.95,
+          "sfx": "0719_때리는 효과음(퍽)4",
+          "vol": 0.7,
+          "peak": true
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "설원 자전거",
+      "src": "raw/y08.mp4",
+      "start": 14.0,
+      "end": 18.6,
+      "gap": 0.7,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.3,
+          "text": "(앞사람 따라가는 중)"
+        },
+        {
+          "at": 2.4,
+          "dur": 0.6,
+          "text": "ㅋ",
+          "box": false
+        },
+        {
+          "at": 3.9,
+          "dur": 0.7,
+          "text": "나@도?",
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "점프대 도전",
+      "src": "raw/y07.mp4",
+      "start": 2.7,
+      "end": 9.9,
+      "gap": 0.7,
+      "volume": 0,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.0,
+          "text": "(점프대 진입)"
+        },
+        {
+          "at": 3.2,
+          "dur": 2.4,
+          "text": "(아직 [y:공중])"
+        },
+        {
+          "at": 6.7,
+          "dur": 0.5,
+          "text": "(.)",
+          "box": false
+        }
+      ],
+      "fx": [
+        {
+          "at": 0.0,
+          "sfx": "1414_겨울 눈 바람소리 1",
+          "vol": 0.5,
+          "dur": 7.2
+        },
+        {
+          "at": 0.9,
+          "sfx": "0657_쉭쉭 바람",
+          "vol": 0.6
+        },
+        {
+          "at": 6.6,
+          "sfx": "0719_때리는 효과음(퍽)4",
+          "vol": 0.7,
+          "peak": true
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "label": "얼음 위 산책",
+      "src": "raw/y05.mp4",
+      "start": 75.0,
+      "end": 80.6,
+      "gap": 0.8,
+      "volume": 1.4,
+      "subs": [
+        {
+          "at": 0.1,
+          "dur": 1.9,
+          "text": "(공 주우러 가는 중)"
+        },
+        {
+          "at": 2.1,
+          "dur": 2.0,
+          "text": "(얼음 두께 [r:확인 안 함])",
+          "anim": "typewriter"
+        },
+        {
+          "at": 4.9,
+          "dur": 0.7,
+          "text": "생@존..?",
+          "box": false
+        }
+      ],
+      "fx": [
+        {
+          "at": 4.6,
+          "sfx": "1672_얼음 깨짐 2",
+          "vol": 0.7,
+          "peak": true
+        }
+      ]
+    }
+  ],
+  "auto_sfx": false
+}
