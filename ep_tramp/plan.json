@@ -1,0 +1,242 @@
+{
+  "template": "black",
+  "header_style": "gradient",
+  "hook_text": "",
+  "title": "트램펄린 대참사",
+  "subtitle": "랭킹 TOP 6",
+  "title_size": 104,
+  "subtitle_size": 100,
+  "title_y": 182,
+  "subtitle_y": 276,
+  "video_top": 342,
+  "video_area_h": 1438,
+  "video_min_h": 1438,
+  "video_max_h": 1438,
+  "list_y": 418,
+  "rank_word_until": 3,
+  "list_alpha": 0.9,
+  "sub_anim": "none",
+  "sub_y": 1270,
+  "gap": 0.0,
+  "end_gap": 1.0,
+  "transition_mode": "clean_drop",
+  "clean_drop": {
+    "sfx": "007_쿵 효과음",
+    "vol": 0.9
+  },
+  "auto_sfx": false,
+  "items": [
+    {
+      "rank": 6,
+      "label": "첫 백플립",
+      "src": "raw/y10.mp4",
+      "start": 1.0,
+      "end": 4.8,
+      "subs": [
+        {
+          "text": "(백플립 첫 도전)",
+          "at": 0.1,
+          "dur": 1.8
+        },
+        {
+          "text": "(..)",
+          "at": 3.3,
+          "dur": 0.5,
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "label": "댕댕이 입문",
+      "src": "raw/y05.mp4",
+      "start": 2.0,
+      "end": 10.2,
+      "gap": 0,
+      "subs": [
+        {
+          "text": "(트램펄린 처음 타본 댕댕이)",
+          "at": 0.1,
+          "dur": 2.0
+        },
+        {
+          "text": "(아직 [y:적응 중])",
+          "at": 2.3,
+          "dur": 1.8
+        },
+        {
+          "text": "점@프!",
+          "at": 4.6,
+          "dur": 0.8,
+          "box": false
+        },
+        {
+          "text": "(신남 [y:MAX])",
+          "at": 5.6,
+          "dur": 1.6
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "label": "더블 백플립",
+      "src": "raw/y03.mp4",
+      "start": 2.8,
+      "end": 7.4,
+      "gap": 0,
+      "subs": [
+        {
+          "text": "(더블 백플립 간다)",
+          "at": 0.1,
+          "dur": 1.6
+        },
+        {
+          "text": "착@지..?",
+          "at": 3.9,
+          "dur": 0.7,
+          "box": false
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "그물 탈출",
+      "src": "raw/y12.mp4",
+      "start": 2.0,
+      "end": 9.6,
+      "gap": 0.7,
+      "subs": [
+        {
+          "text": "(그물 있어서 안전함)",
+          "at": 0.1,
+          "dur": 2.4
+        },
+        {
+          "text": "?",
+          "at": 4.4,
+          "dur": 0.6,
+          "box": false
+        },
+        {
+          "text": "(그물 밖 [r:탈출 완료])",
+          "at": 6.0,
+          "dur": 1.6
+        }
+      ],
+      "fx": [
+        {
+          "sfx": "171_먼가 이상할때 띠용",
+          "at": 4.35,
+          "vol": 0.6
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "최고점 도달",
+      "src": "raw/y11.mp4",
+      "start": 26.5,
+      "end": 35.0,
+      "gap": 0.7,
+      "volume": 0,
+      "subs": [
+        {
+          "text": "(높이 [y:최대치] 충전 중)",
+          "at": 0.2,
+          "dur": 2.4
+        },
+        {
+          "text": "(이제 착지만 하면 됨)",
+          "at": 2.8,
+          "dur": 2.6
+        },
+        {
+          "text": "생@존..?",
+          "at": 6.9,
+          "dur": 1.0,
+          "box": false
+        }
+      ],
+      "fx": [
+        {
+          "sfx": "2474_평원 바람소리",
+          "at": 0,
+          "vol": 0.45,
+          "dur": 8.5
+        },
+        {
+          "sfx": "2037_새소리1",
+          "at": 0,
+          "vol": 0.3,
+          "dur": 8.5
+        },
+        {
+          "sfx": "1876_스프링 튕기는 소리",
+          "at": 0.1,
+          "vol": 0.5
+        },
+        {
+          "sfx": "0719_때리는 효과음(퍽)4",
+          "at": 5.8,
+          "vol": 0.75,
+          "peak": true
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "label": "호수 직행",
+      "src": "raw/y06.mp4",
+      "start": 4.0,
+      "end": 10.0,
+      "gap": 0.8,
+      "subs": [
+        {
+          "text": "(트램펄린 + 호수 = ?)",
+          "at": 0.1,
+          "dur": 2.2
+        },
+        {
+          "text": "(사실 계획대로임)",
+          "at": 4.8,
+          "dur": 1.2,
+          "anim": "typewriter"
+        }
+      ],
+      "focus": [
+        [
+          0,
+          0.42
+        ],
+        [
+          2.6,
+          0.45
+        ],
+        [
+          3.4,
+          0.55
+        ],
+        [
+          3.8,
+          0.7
+        ],
+        [
+          4.2,
+          0.75
+        ],
+        [
+          4.6,
+          0.68
+        ],
+        [
+          5.0,
+          0.58
+        ],
+        [
+          6.0,
+          0.55
+        ]
+      ]
+    }
+  ]
+}
