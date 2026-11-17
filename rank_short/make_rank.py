@@ -149,8 +149,51 @@ def load_plan(path):
     if plan.get("template") == "blur":  # 예전 흐린 배경 템플릿 (랭킹감자 스타일)
         base.update({"video_top": 365, "video_area_h": 1280, "video_min_h": 1000, "video_max_h": 1280,
                      "title_size": 104, "subtitle_size": 100})
+    elif plan.get("template") == "ref_black_header":
+        # 레퍼런스 7편 1:1 정밀 복제 + 상단 제목 영역(0~365px)만 순수 검정 블락 처리
+        base.update({
+            "header_style": "ref_exact",
+            "hook_text": "",
+            "video_top": 365,
+            "video_area_h": 1555,
+            "video_min_h": 1120,
+            "video_max_h": 1555,
+            "title_size": 98,
+            "subtitle_size": 102,
+            "title_y": 200,
+            "subtitle_y": 296,
+            "x_scale": 0.86,
+            "rank_word_until": 3,  # 1·2·3위만 "N등" (사용자 결정 2026-11-18)
+            "rank_colors": {"1": "#ff3531", "2": "#ff9e3e", "3": "#ffef60"},
+            "label_color": "#f2f4f7",
+            "list_center_x": 116,
+            "label_x": 172,
+            "list_y": 431,
+            "list_step": 78,
+            "rank_size": 56,
+            "label_size": 46,
+            "list_stroke": 5,
+            "label_stroke": 4,
+            "list_alpha": 1.0,
+            "label_blur": 0,
+            "label_fade": 0.65,
+            "label_delay": 0.067,
+            "sub_y": 1272,
+            "sub_size": 48,
+            "sub_anim": "none",
+            "sub_box_alpha": 255,
+            "sub_max_words": 8,
+            "gap": round(13 / 30, 6),
+            "end_gap": round(13 / 30, 6),
+            # 전환음: 기존 에피소드와 같은 저음 드롭(007_쿵 효과음) 사용 (사용자 결정 2026-11-18)
+            "transition_mode": "clean_drop",
+            "clean_drop": {"sfx": "007_쿵 효과음", "vol": 0.9},
+            "auto_sfx": False,  # 자동 효과음 연출 끔 (사용자 결정 2026-11-18)
+            "sfx_peak_db": -2.5,
+            "loudness": -13.5,
+        })
     cfg = {**base, **{k: v for k, v in plan.items() if k != "items"}}
-    cfg["rank_colors"] = {**DEFAULTS["rank_colors"], **plan.get("rank_colors", {})}
+    cfg["rank_colors"] = {**base["rank_colors"], **plan.get("rank_colors", {})}
     items = plan["items"]
     if not items:
         raise SystemExit("items 가 비어 있습니다")
@@ -185,6 +228,10 @@ def load_plan(path):
         if it.get("slow"):
             a, b, f = it["slow"]
             d += (b - a) * (f - 1)
+        if it.get("freeze"):
+            d += float(it["freeze"][1])
+        if it.get("replay"):
+            d += float(it["replay"]["end"]) - float(it["replay"]["start"])
         if d > 0 and not lo * 0.8 <= d <= hi * 1.25:
             kind = next((k for k, (a, b) in vary.items() if a <= d <= b and k not in used), None)
             if kind:
@@ -322,6 +369,21 @@ def fit_w(img, maxw=W - 60):
 def header_layer(cfg):
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     hstyle = cfg.get("header_style") or ("flat" if cfg["template"] == "black" else "gradient")
+    if hstyle == "ref_exact":
+        p_aggro = ROOT / "assets/fonts/AggroB.ttf"
+        f_path = p_aggro if p_aggro.exists() else FONT_HEAVY
+        xs = float(cfg.get("x_scale", 0.86))
+        t1 = gradient_text(cfg["title"], font(cfg["title_size"], f_path), "#f7cc2e", "#cf9a14", 8, shadow=(6, 6), skew=0.18)
+        t1 = t1.resize((max(1, int(round(t1.width * xs))), t1.height), Image.LANCZOS)
+        t1 = fit_w(t1, W - 56)
+        t2 = gradient_text(cfg["subtitle"], font(cfg["subtitle_size"], f_path), "#dcdedf", "#9b9ea3", 8, shadow=(6, 6), skew=0.18)
+        t2 = t2.resize((max(1, int(round(t2.width * xs))), t2.height), Image.LANCZOS)
+        t2 = fit_w(t2, W - 56)
+        hy1 = int(cfg.get("title_y", 200))
+        hy2 = int(cfg.get("subtitle_y", 296))
+        img.alpha_composite(t1, ((W - t1.width) // 2, hy1 - t1.height // 2))
+        img.alpha_composite(t2, ((W - t2.width) // 2, hy2 - t2.height // 2))
+        return img
     if hstyle == "flat":
         # 검정 띠 위: (질문 한 줄, 흰색) / 주제 (주아체 노랑, [ ] 로 일부만 노랑 가능) / "랭킹 TOP N" (빨강)
         tf = title_font
@@ -345,7 +407,26 @@ def header_layer(cfg):
     return img
 
 
+def _scaled_glyph(text, fnt, fill, stroke, xs=1.0):
+    pad = stroke * 2 + 24
+    l, t, r, b = fnt.getbbox(text, stroke_width=stroke)
+    tw, th = max(1, r - l + pad * 2), max(1, b - t + pad * 2)
+    im = Image.new("RGBA", (tw, th), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((pad - l, pad - t), text, font=fnt, fill=fill, stroke_width=stroke, stroke_fill=(0, 0, 0))
+    bb = im.getbbox()
+    im = im.crop(bb) if bb else im
+    if abs(xs - 1.0) > 1e-3:
+        im = im.resize((max(1, int(round(im.width * xs))), im.height), Image.LANCZOS)
+    return im
+
+
 def list_fonts(cfg):
+    if cfg.get("template") == "ref_black_header":
+        p_num = ROOT / "assets/fonts/AggroM.ttf"
+        p_lab = ROOT / "assets/fonts/EsamanruMed.ttf"
+        fn = font(cfg["rank_size"], p_num) if p_num.exists() else label_font(cfg["rank_size"], cfg["list_weight"])
+        fl = font(cfg["label_size"], p_lab) if p_lab.exists() else label_font(cfg["label_size"], cfg["list_weight"])
+        return fn, fl
     return label_font(cfg["rank_size"], cfg["list_weight"]), label_font(cfg["label_size"], cfg["list_weight"])
 
 
@@ -360,8 +441,12 @@ def list_rows(cfg, n):
     for i, rank in enumerate(range(1, n + 1)):
         y = cfg["list_y"] + i * step
         rt = f"{rank}등" if rank <= word_until else f"{rank}."
-        x = cfg["list_x"]
-        lx = x + max(num_w, d.textlength(rt, font=fr)) + cfg["label_gap"]
+        if cfg.get("list_center_x") is not None:
+            x = int(cfg["list_center_x"])
+            lx = int(cfg.get("label_x", x + 56))
+        else:
+            x = cfg["list_x"]
+            lx = x + max(num_w, d.textlength(rt, font=fr)) + cfg["label_gap"]
         rows.append((rank, rt, x, y, lx))
     return rows
 
@@ -386,8 +471,23 @@ def rank_rgb(cfg, rank):
 def list_layer(cfg, n, revealed):
     """revealed: {rank: label} 지금 화면에 다 보여 있는 라벨들."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
     fr, fl = list_fonts(cfg)
+    if cfg.get("template") == "ref_black_header":
+        xs_num = float(cfg.get("x_scale", 0.86)) * 0.99
+        xs_lab = float(cfg.get("x_scale", 0.86))
+        lab_rgb = hex_rgb(cfg.get("label_color", "#f2f4f7"))
+        for rank, rt, cx, y, lx in list_rows(cfg, n):
+            g_num = _scaled_glyph(rt, fr, rank_rgb(cfg, rank), cfg["list_stroke"], xs=xs_num)
+            img.alpha_composite(g_num, (cx - g_num.width // 2, y - g_num.height // 2))
+            if revealed.get(rank):
+                g_lab = _scaled_glyph(revealed[rank], fl, lab_rgb, int(cfg.get("label_stroke", 4)), xs=xs_lab)
+                img.alpha_composite(g_lab, (lx, y - g_lab.height // 2))
+        sh = img.split()[3].filter(ImageFilter.GaussianBlur(3)).point(lambda v: int(v * 0.6))
+        shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        shadow.paste((0, 0, 0, 255), (3, 4), sh)
+        shadow.alpha_composite(img)
+        return fade_alpha(shadow, cfg["list_alpha"])
+    d = ImageDraw.Draw(img)
     for rank, rt, x, y, lx in list_rows(cfg, n):
         draw_list_text(d, (x, y), rt, fr, rank_rgb(cfg, rank), cfg)
         if revealed.get(rank):
@@ -407,6 +507,22 @@ def label_anim_frames(cfg, n, rank, text, tmp, tag):
     _, _, _, y, lx = row
     _, fl = list_fonts(cfg)
     pad = 40
+    if cfg.get("template") == "ref_black_header":
+        xs_lab = float(cfg.get("x_scale", 0.86))
+        lab_rgb = hex_rgb(cfg.get("label_color", "#f2f4f7"))
+        g_lab = _scaled_glyph(text, fl, lab_rgb, int(cfg.get("label_stroke", 4)), xs=xs_lab)
+        base = Image.new("RGBA", (g_lab.width + pad * 2, g_lab.height + pad * 2), (0, 0, 0, 0))
+        base.alpha_composite(g_lab, (pad, pad))
+        sh = base.split()[3].filter(ImageFilter.GaussianBlur(3)).point(lambda v: int(v * 0.6))
+        full = Image.new("RGBA", base.size, (0, 0, 0, 0))
+        full.paste((0, 0, 0, 255), (3, 4), sh)
+        full.alpha_composite(base)
+        frames = max(2, int(round(cfg["label_fade"] * cfg["fps"])))
+        for k in range(frames):
+            p = k / (frames - 1)
+            e = 1 - (1 - p) ** 2.5
+            fade_alpha(full, cfg["list_alpha"] * e).save(tmp / f"lab_{tag}_{k:03d}.png")
+        return tmp / f"lab_{tag}_%03d.png", int(lx - pad), int(y - g_lab.height // 2 - pad)
     l, t, r, b = fl.getbbox(text, stroke_width=cfg["list_stroke"], anchor="lm")
     base = Image.new("RGBA", (r - l + pad * 2, b - t + pad * 2), (0, 0, 0, 0))
     d = ImageDraw.Draw(base)
@@ -442,18 +558,27 @@ def sub_spans(line):
     return out
 
 
-def sub_image(text, cfg, box=True, upto=None):
+def sub_image(text, cfg, box=True, upto=None, size_override=None):
     """검은 박스 + 글자. [y:..] 노랑, [r:..] 빨강 등 단어별 색.
     box=False: 박스 없이 두꺼운 검정 외곽선 글자만 (뇌정지 리액션 ??????).
     upto=k: 앞에서부터 k 글자만 그림 (typewriter 용, 캔버스 크기는 전체 기준 그대로)."""
-    f = sub_font(cfg["sub_size"])
+    sz = int(size_override or cfg["sub_size"])
+    if cfg.get("template") == "ref_black_header":
+        p_esam = ROOT / "assets/fonts/EsamanruMed.ttf"
+        f = font(sz, p_esam) if p_esam.exists() else sub_font(sz)
+        xs = float(cfg.get("sub_x_scale", 0.88))
+    else:
+        f = sub_font(sz)
+        xs = 1.0
     lines = [sub_spans(l) for l in text.split("|")]
-    lh = int(cfg["sub_size"] * 1.3)
+    lh = int(sz * 1.32)
     widths = [sum(f.getlength(s) for s, _ in ln) for ln in lines]
-    tw = int(max(widths))
-    stroke = 0 if box else max(3, int(cfg["sub_size"] * 0.12))
-    px, py = 18 + stroke, 10 + stroke
-    img = Image.new("RGBA", (tw + px * 2, lh * len(lines) + py * 2), (0, 0, 0, 225 if box else 0))
+    tw = max(1, int(max(widths)))
+    stroke = 0 if box else max(3, int(sz * 0.13))
+    px = (18 if xs == 1.0 else int(round(16 / xs))) + stroke
+    py = (10 if xs == 1.0 else 13) + stroke
+    b_alpha = int(cfg.get("sub_box_alpha", 225)) if box else 0
+    img = Image.new("RGBA", (tw + px * 2, lh * len(lines) + py * 2), (0, 0, 0, b_alpha))
     dd = ImageDraw.Draw(img)
     left = upto if upto is not None else 10 ** 9
     for i, (ln, lw) in enumerate(zip(lines, widths)):
@@ -465,6 +590,8 @@ def sub_image(text, cfg, box=True, upto=None):
                 dd.text((x, py + lh * i + lh // 2), shown, font=f, fill=hex_rgb(c), anchor="lm",
                         stroke_width=stroke, stroke_fill=(0, 0, 0))
             x += f.getlength(s)
+    if abs(xs - 1.0) > 1e-3:
+        img = img.resize((max(1, int(round(img.width * xs))), img.height), Image.LANCZOS)
     return img
 
 
@@ -543,6 +670,10 @@ def item_frames(cfg, items, idx, tmp, include_current=True):
 def slow_map(it):
     """"slow": [a, b, 배율] (클립 안 원본 초) → 원본 시각을 결과 시각으로 바꾸는 함수와 늘어난 길이."""
     s = it.get("slow")
+    fz = it.get("freeze")
+    if fz and not s:  # "freeze": [t, 초] — 클립 안 t초 프레임을 정지 (레퍼런스 공중 정지컷)
+        ft, fd = float(fz[0]), float(fz[1])
+        return (lambda t: t if t < ft else t + fd), fd
     if not s:
         return (lambda t: t), 0.0
     a, b, f = float(s[0]), float(s[1]), float(s[2])
@@ -620,6 +751,47 @@ def focus_expr(it, start, dur, cfg, src_w, src_h, bh, tmap):
     return f"(iw-ow)*({expr})"
 
 
+def label_x_expr(cfg, lab_x):
+    """"label_slide": N px — 라벨이 오른쪽 N px 에서 제자리로 미끄러져 들어옴 (페이드와 같은 감속 곡선)."""
+    s = float(cfg.get("label_slide", 0) or 0)
+    if s <= 0:
+        return str(lab_x)
+    d, f = float(cfg["label_delay"]), max(float(cfg["label_fade"]), 1e-3)
+    return f"'{lab_x}+{s}*pow(max(0,1-max(0,t-{d})/{f}),2.5)'"
+
+
+def punch_chain(punches, bh, dur):
+    """"punch": [{"at","dur","zoom","cx","cy"}, ...] — 클립 시간(초) 구간을 하드컷으로 확대(포인트 줌인) 후 복귀.
+    [fgp] (W x bh) → [fg]. cx/cy 는 확대할 지점 (0~1, 영상 박스 기준)."""
+    if not punches:
+        return []
+    ps = sorted(punches, key=lambda p: float(p["at"]))
+    segs, t = [], 0.0
+    for p in ps:
+        a = max(t, float(p["at"]))
+        b = min(dur, a + float(p.get("dur", 0.8)))
+        if a > t:
+            segs.append((t, a, None))
+        if b > a:
+            segs.append((a, b, p))
+        t = b
+    if t < dur:
+        segs.append((t, None, None))
+    out = [f"[fgp]split={len(segs)}" + "".join(f"[ps{k}]" for k in range(len(segs)))]
+    for k, (a, b, p) in enumerate(segs):
+        tr = f"trim={a:.3f}" + (f":{b:.3f}" if b is not None else "")
+        f = f"[ps{k}]{tr},setpts=PTS-STARTPTS,setsar=1"
+        if p:
+            z = float(p.get("zoom", 1.6))
+            cw, ch = int(W / z) // 2 * 2, int(bh / z) // 2 * 2
+            cx, cy = float(p.get("cx", 0.5)), float(p.get("cy", 0.5))
+            f += (f",crop={cw}:{ch}:{(W - cw) * cx:.0f}:{(bh - ch) * cy:.0f},"
+                  f"scale={W}:{bh}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0,setsar=1")
+        out.append(f + f"[pz{k}]")
+    out.append("".join(f"[pz{k}]" for k in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=0[fg]")
+    return out
+
+
 def render_item(cfg, items, idx, tmp, out, still_at=None):
     it = items[idx]
     info = probe(it["src"])
@@ -630,7 +802,9 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
     if src_dur <= 0.2:
         raise SystemExit(f"{it['rank']}등 클립 구간이 너무 짧습니다 (start={start}, end={end})")
     tmap, extra = slow_map(it)
-    dur = src_dur + extra
+    rp = it.get("replay")  # {"start","end","zoom","cx","cy"}: 본편 뒤 하드컷 확대 리플레이 (원본 초)
+    rp_dur = (min(float(rp["end"]), info["dur"]) - float(rp["start"])) if rp else 0.0
+    dur = src_dur + extra + rp_dur
     bh = int(it["box_h"]) // 2 * 2 if it.get("box_h") else video_box_h(info, cfg)
     cr = it.get("crop") or [0, 0, 1, 1]
     sw, sh = info["w"] * cr[2], info["h"] * cr[3]
@@ -646,6 +820,9 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
     cmd = ["ffmpeg", "-y", "-v", "error", "-ss", f"{start}", "-t", f"{src_dur}", "-i", str(it["src"]),
            "-loop", "1", "-i", str(ov),
            "-framerate", str(cfg["fps"]), "-i", str(lab_pat)]
+    if rp:
+        cmd += ["-ss", f"{float(rp['start'])}", "-t", f"{rp_dur}", "-i", str(it["src"])]
+    sb = 4 if rp else 3  # 자막 입력 시작 번호
     flip = ",hflip" if it.get("flip") else ""  # 주인공이 왼쪽 순위표에 가릴 때 좌우반전
     # 원본에 박힌 영어 자막 등 가리기: "blur": [[x, y, w, h], ...] (원본 화면 기준 0~1 비율)
     # 원본 먼저 자르기 (세로 영상 양옆 검은 띠 등): "crop": [x, y, w, h] (0~1 비율)
@@ -674,7 +851,37 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
                     f"[r2]atrim={b0},asetpts=PTS-STARTPTS[u2]",
                     "[u0][u1][u2]concat=n=3:v=0:a=1[aslow]"]
             ain = "[aslow]"
-    pre.append(f"{vin}fps={cfg['fps']}{crop},setsar=1{flip}[w0]")
+    fz = it.get("freeze")
+    loopf = ""
+    if fz:
+        if sl:
+            raise SystemExit(f"{it['rank']}등: slow 와 freeze 는 함께 쓸 수 없습니다")
+        ft = float(fz[0])
+        fi, nfz = int(round(ft * cfg["fps"])), max(1, int(round(float(fz[1]) * cfg["fps"])))
+        loopf = f",loop=loop={nfz}:size=1:start={fi},setpts=N/FRAME_RATE/TB"
+        if info["audio"] and still_at is None:  # 정지 동안 소리도 멈춤 (무음), 이후 원본 이어짐
+            pre += ["[0:a]aresample=48000,aformat=channel_layouts=stereo,asplit=2[z0][z1]",
+                    f"[z0]atrim=0:{ft},asetpts=PTS-STARTPTS[y0]",
+                    f"[z1]atrim={ft},asetpts=PTS-STARTPTS[y2]",
+                    f"anullsrc=r=48000:cl=stereo,atrim=0:{nfz / cfg['fps']:.4f}[y1]",
+                    "[y0][y1][y2]concat=n=3:v=0:a=1[afrz]"]
+            ain = "[afrz]"
+    pre.append(f"{vin}fps={cfg['fps']}{loopf}{crop},setsar=1{flip}{'[wm]' if rp else '[w0]'}")
+    if rp:
+        crr = it.get("crop") or [0, 0, 1, 1]
+        mw, mh = int(info["w"] * crr[2]) // 2 * 2, int(info["h"] * crr[3]) // 2 * 2
+        z = float(rp.get("zoom", 1.5))
+        cx, cy = float(rp.get("cx", 0.5)), float(rp.get("cy", 0.5))
+        pre += [f"[3:v]fps={cfg['fps']}{crop},setsar=1{flip},"
+                f"crop=iw/{z}:ih/{z}:(iw-iw/{z})*{cx}:(ih-ih/{z})*{cy},scale={mw}:{mh},setsar=1[wr]",
+                f"[wm]scale={mw}:{mh},setsar=1[wm2]",
+                "[wm2][wr]concat=n=2:v=1:a=0[w0]"]
+        if info["audio"] and still_at is None:
+            pre += [f"{ain}aresample=48000,aformat=channel_layouts=stereo,apad,"
+                    f"atrim=0:{src_dur + extra:.3f}[am]",
+                    "[3:a]aresample=48000,aformat=channel_layouts=stereo[ar]",
+                    "[am][ar]concat=n=2:v=0:a=1[arp]"]
+            ain = "[arp]"
     boxes = it.get("blur", [])
     if boxes:
         n = len(boxes)
@@ -690,6 +897,12 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
         bgf = [*pre, "[w1]null[b]",
                f"color=black:s={W}x{H}:r={cfg['fps']}[bg]"]
         vy = cfg["video_top"] + (cfg["video_area_h"] - bh) // 2
+    elif cfg["template"] == "ref_black_header":
+        bgf = [*pre, "[w1]split[a][b]",
+               f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},"
+               f"gblur=sigma=30,eq=brightness=-0.05:saturation=1.08,"
+               f"drawbox=x=0:y=0:w={W}:h={cfg['video_top']}:color=black@1:t=fill[bg]"]
+        vy = cfg["video_top"]
     else:
         bgf = [*pre, "[w1]split[a][b]",
                f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},"
@@ -697,16 +910,18 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
         vy = cfg["video_top"]
     fc = [*bgf,
           f"[b]scale={W}:{bh}:force_original_aspect_ratio=increase:flags=lanczos{sharp},"
-          f"crop={W}:{bh}:'{fx_expr}':(ih-oh)*{float(it.get('focus_y', 0.5))}[fg]",
+          f"crop={W}:{bh}:'{fx_expr}':(ih-oh)*{float(it.get('focus_y', 0.5))}"
+          f"{'[fgp]' if it.get('punch') else '[fg]'}",
+          *punch_chain(it.get("punch"), bh, dur),
           f"[bg][fg]overlay=0:{vy}:shortest=1[v0]",
           "[v0][1:v]overlay=0:0:shortest=1[v1a]",
           # 새 라벨: 클립 시작과 함께 흐릿→선명하게 나타나고, 마지막 프레임 유지
           f"[2:v]setpts=PTS+{cfg['label_delay']}/TB[lab]",
-          f"[v1a][lab]overlay={lab_x}:{lab_y}:eof_action=repeat[v1]"]
+          f"[v1a][lab]overlay={label_x_expr(cfg, lab_x)}:{lab_y}:eof_action=repeat[v1]"]
     last = "v1"
     for j, s in enumerate(it.get("subs", [])):
         box = s.get("box", True) is not False
-        img = sub_image(s["text"], cfg, box=box)
+        img = sub_image(s["text"], cfg, box=box, size_override=s.get("size"))
         anim = s.get("anim", cfg["sub_anim"])
         pat, pad = sub_anim_frames(img, anim, cfg["fps"], tmp, f"{idx:02d}_{j:02d}",
                                    text=s["text"], cfg=cfg, dur=float(s.get("dur", 1.2)), box=box)
@@ -714,7 +929,7 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
         a = float(s.get("at", 0))
         b = a + float(s.get("dur", 1.2))
         x, y = (W - img.width) // 2 - pad, int(s.get("y", cfg["sub_y"])) - img.height // 2 - pad
-        fc.append(f"[{j + 3}:v]setpts=PTS+{a:.3f}/TB[sa{j}]")
+        fc.append(f"[{j + sb}:v]setpts=PTS+{a:.3f}/TB[sa{j}]")
         fc.append(f"[{last}][sa{j}]overlay={x}:{y}:eof_action=repeat:"
                   f"enable='between(t,{a:.3f},{b:.3f})'[s{j}]")
         last = f"s{j}"
@@ -753,14 +968,16 @@ def item_gap(cfg, items, i):
 def render_gap(cfg, items, idx, tmp, out, g=None):
     """idx 번째 순위가 끝난 뒤 검은 화면 (그때까지 공개된 순위표만)."""
     ov = item_frames(cfg, items, idx, tmp)
-    g = cfg["gap"] if g is None else g
+    g = float(cfg["gap"] if g is None else g)
+    nf = max(1, int(round(g * cfg["fps"])))
+    real_g = nf / cfg["fps"]
     run(["ffmpeg", "-y", "-v", "error",
-         "-f", "lavfi", "-i", f"color=black:s={W}x{H}:r={cfg['fps']}:d={g}",
+         "-f", "lavfi", "-i", f"color=black:s={W}x{H}:r={cfg['fps']}:d={real_g + 0.1:.4f}",
          "-loop", "1", "-i", str(ov),
          "-f", "lavfi", "-i", f"anullsrc=r=48000:cl=stereo",
          "-filter_complex", "[0:v][1:v]overlay=0:0:shortest=1,setsar=1[v]",
-         "-map", "[v]", "-map", "2:a", "-t", f"{g}", *ENC, str(out)])
-    return g
+         "-map", "[v]", "-map", "2:a", "-frames:v", str(nf), "-t", f"{real_g:.6f}", *ENC, str(out)])
+    return real_g
 
 
 # ───────────────────────── 효과음 ─────────────────────────
@@ -843,7 +1060,17 @@ def sfx_events(cfg, items, starts, ends, plan_dir):
     whooshes = tr.get("whoosh") or []
     end_at = ends[-1]  # 1위 칼컷 = 엔딩 암전 시작
     has_end = float(cfg.get("end_gap") or 0) > 0
-    if cfg.get("transition_mode") == "clean_drop":
+    if cfg.get("transition_mode") == "ref_hum":
+        # 레퍼런스 7편 실측: 0.0초 전환음 없음, 모든 순위 사이 암전(0.433초) + 엔딩 암전에만 45.4Hz 서브베이스 험 단독 재생
+        hum_sfx = str(ROOT / "assets/sfx/ref_gap_hum.wav")
+        hum_vol = float(cfg.get("hum_vol", 0.85))
+        for i in range(1, len(items)):
+            gdur = starts[i] - ends[i - 1]
+            if gdur > 0.02:
+                add(hum_sfx, ends[i - 1], hum_vol, False, dur=gdur)
+        if has_end:
+            add(hum_sfx, end_at, hum_vol, False, dur=float(cfg["end_gap"]))
+    elif cfg.get("transition_mode") == "clean_drop":
         # 저음 드롭 1종만: 0.0초 오프닝, 순위 경계(암전이면 암전 진입, 하드컷이면 컷), 엔딩 암전 진입
         cd = cfg.get("clean_drop") or {}
         name, vol = cd.get("sfx", "007_쿵 효과음"), float(cd.get("vol", 0.9))

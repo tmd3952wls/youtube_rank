@@ -1,0 +1,101 @@
+{
+  "template": "ref_black_header",
+  "title": "아찔한 블랙박스 순간.",
+  "label_delay": 0.25,
+  "label_fade": 0.5,
+  "label_slide": 130,
+  "items": [
+    {
+      "rank": 6,
+      "label": "무단횡단",
+      "src": "raw/y07.mp4",
+      "start": 3.3,
+      "end": 6.9,
+      "crop": [0.12, 0.126, 0.76, 0.748],
+      "box_h": 860,
+      "focus_x": 0.5,
+      "punch": [{"at": 1.6, "dur": 0.7, "zoom": 1.6, "cx": 0.5, "cy": 0.75}],
+      "subs": [
+        {"text": "(평화로운 출근길)", "at": 0.0, "dur": 1.4},
+        {"text": "?", "at": 2.4, "dur": 0.5, "box": false},
+        {"text": "[y:(사@라짐)]", "at": 2.9, "dur": 0.7}
+      ],
+      "fx": [{"sfx": "1273_자동차 운전 소리1", "at": 0.0, "vol": 0.45}]
+    },
+    {
+      "rank": 5,
+      "label": "칼치기",
+      "src": "raw/y00.mp4",
+      "start": 18.8,
+      "end": 21.5,
+      "gap": 0,
+      "punch": [{"at": 0.95, "dur": 0.5, "zoom": 1.5, "cx": 0.55, "cy": 0.65}],
+      "subs": [
+        {"text": "(트랙터 운전 중)", "at": 0.0, "dur": 0.8},
+        {"text": "?", "at": 1.5, "dur": 0.4, "box": false},
+        {"text": "[r:(종이 한 장 차이)]", "at": 1.9, "dur": 0.8}
+      ]
+    },
+    {
+      "rank": 4,
+      "label": "신호위반",
+      "src": "raw/y10.mp4",
+      "start": 3.6,
+      "end": 11.6,
+      "volume": 0,
+      "punch": [{"at": 6.1, "dur": 0.8, "zoom": 1.6, "cx": 0.35, "cy": 0.55}],
+      "subs": [
+        {"text": "(빨간불 대기 중)", "at": 0.0, "dur": 2.2},
+        {"text": "(뒤에서 뭐가 옴)", "at": 4.0, "dur": 1.0},
+        {"text": "[y:(경찰차 ON)]", "at": 6.1, "dur": 1.2},
+        {"text": "인@과응보 ㅋ", "at": 7.3, "dur": 0.7, "box": false}
+      ],
+      "fx": [
+        {"sfx": "1273_자동차 운전 소리1", "at": 0.0, "vol": 0.4},
+        {"sfx": "0632_자동차 지나가는 소리", "at": 4.4, "vol": 0.8}
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "추월",
+      "src": "raw/y01.mp4",
+      "start": 17.4,
+      "end": 20.9,
+      "punch": [{"at": 2.6, "dur": 0.5, "zoom": 1.5, "cx": 0.75, "cy": 0.7}],
+      "subs": [
+        {"text": "(시골길 서행 중)", "at": 0.0, "dur": 0.8},
+        {"text": "(1대 추월)", "at": 1.0, "dur": 1.2},
+        {"text": "[r:(2대째)]", "at": 2.6, "dur": 0.6},
+        {"text": "?", "at": 3.2, "dur": 0.3, "box": false}
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "트럭",
+      "src": "raw/y08.mp4",
+      "start": 7.0,
+      "end": 11.9,
+      "punch": [{"at": 3.2, "dur": 0.5, "zoom": 1.4, "cx": 0.4, "cy": 0.7}],
+      "subs": [
+        {"text": "(자전거 신호 대기)", "at": 0.0, "dur": 1.8},
+        {"text": "어@어어..", "at": 2.2, "dur": 0.7, "box": false},
+        {"text": "(..)", "at": 4.5, "dur": 0.4, "box": false}
+      ]
+    },
+    {
+      "rank": 1,
+      "label": "로우라이더",
+      "src": "raw/y12.mp4",
+      "start": 18.0,
+      "end": 26.8,
+      "crop": [0.124, 0, 0.752, 1],
+      "subs": [
+        {"text": "(로우라이더 대회)", "at": 0.0, "dur": 1.6},
+        {"text": "(차가 서 있음)", "at": 1.8, "dur": 1.4},
+        {"text": "언@제까지..?", "at": 3.5, "dur": 1.0, "box": false},
+        {"text": "[r:(뒤@집힘)]", "at": 6.8, "dur": 0.9},
+        {"text": "(이게 대회 맞음?)", "at": 7.75, "dur": 1.05, "anim": "typewriter"}
+      ]
+    }
+  ]
+}
