@@ -164,6 +164,8 @@ def load_plan(path):
             "subtitle_y": 296,
             "x_scale": 0.86,
             "rank_word_until": 3,  # 1·2·3위만 "N등" (사용자 결정 2026-11-18)
+            # 전 영상 공통 브금 QKThr (사용자 결정 2026-11-21, 원본 현장음 밑에 깔림). plan 에서 "bgm": null 로 끌 수 있음
+            "bgm": {"path": str(ROOT / "assets" / "bgm" / "QKThr.mp3"), "volume": 0.25},
             "rank_colors": {"1": "#ff3531", "2": "#ff9e3e", "3": "#ffef60"},
             "label_color": "#f2f4f7",
             "list_center_x": 116,
@@ -232,6 +234,8 @@ def load_plan(path):
             d += float(it["freeze"][1])
         if it.get("replay"):
             d += float(it["replay"]["end"]) - float(it["replay"]["start"])
+        if it.get("end_freeze"):
+            d += float(it["end_freeze"].get("dur", 0.65))
         if d > 0 and not lo * 0.8 <= d <= hi * 1.25:
             kind = next((k for k, (a, b) in vary.items() if a <= d <= b and k not in used), None)
             if kind:
@@ -760,9 +764,9 @@ def label_x_expr(cfg, lab_x):
     return f"'{lab_x}+{s}*pow(max(0,1-max(0,t-{d})/{f}),2.5)'"
 
 
-def punch_chain(punches, bh, dur):
+def punch_chain(punches, bh, dur, out_tag="[fg]"):
     """"punch": [{"at","dur","zoom","cx","cy"}, ...] — 클립 시간(초) 구간을 하드컷으로 확대(포인트 줌인) 후 복귀.
-    [fgp] (W x bh) → [fg]. cx/cy 는 확대할 지점 (0~1, 영상 박스 기준)."""
+    [fgp] (W x bh) → out_tag. cx/cy 는 확대할 지점 (0~1, 영상 박스 기준)."""
     if not punches:
         return []
     ps = sorted(punches, key=lambda p: float(p["at"]))
@@ -788,8 +792,30 @@ def punch_chain(punches, bh, dur):
             f += (f",crop={cw}:{ch}:{(W - cw) * cx:.0f}:{(bh - ch) * cy:.0f},"
                   f"scale={W}:{bh}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0,setsar=1")
         out.append(f + f"[pz{k}]")
-    out.append("".join(f"[pz{k}]" for k in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=0[fg]")
+    out.append("".join(f"[pz{k}]" for k in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=0{out_tag}")
     return out
+
+
+def end_freeze_chain(ef, bh, base_dur, has_punch=False, in_tag="[fg0]", out_tag="[fg]"):
+    """"end_freeze": {"at", "dur", "zoom", "cx", "cy"} — 본편이 끝난 직후(다음 순위 전환 직전),
+    클립 안 결정적 순간(at 초, 미지정 시 본편 끝 직전) 한 프레임을 하드컷으로 확! 당겨 dur 초간 정지 박제."""
+    if not ef:
+        return []
+    ef_dur = float(ef.get("dur", 0.8))
+    at = min(max(float(ef.get("at", max(0.0, base_dur - 0.08))), 0.0), max(0.0, base_dur - 0.04))
+    z = float(ef.get("zoom", 1.65))
+    cw, ch = max(2, int(W / z) // 2 * 2), max(2, int(bh / z) // 2 * 2)
+    cx, cy = min(max(float(ef.get("cx", 0.5)), 0.0), 1.0), min(max(float(ef.get("cy", 0.5)), 0.0), 1.0)
+    ox, oy = int(round((W - cw) * cx)), int(round((bh - ch) * cy))
+    head = [] if has_punch else [f"{in_tag}setsar=1,split=2[ef_main][ef_src]"]
+    return [
+        *head,
+        f"[ef_src]trim=start={at:.3f},trim=end_frame=1,setpts=PTS-STARTPTS,"
+        f"crop={cw}:{ch}:{ox}:{oy},scale={W}:{bh}:flags=lanczos,"
+        f"unsharp=5:5:0.75:5:5:0.0,setsar=1,"
+        f"tpad=stop_mode=clone:stop_duration={ef_dur + 0.05:.4f},trim=0:{ef_dur:.4f},setpts=PTS-STARTPTS[ef_frz]",
+        f"[ef_main][ef_frz]concat=n=2:v=1:a=0{out_tag}",
+    ]
 
 
 def render_item(cfg, items, idx, tmp, out, still_at=None):
@@ -804,7 +830,10 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
     tmap, extra = slow_map(it)
     rp = it.get("replay")  # {"start","end","zoom","cx","cy"}: 본편 뒤 하드컷 확대 리플레이 (원본 초)
     rp_dur = (min(float(rp["end"]), info["dur"]) - float(rp["start"])) if rp else 0.0
-    dur = src_dur + extra + rp_dur
+    base_dur = src_dur + extra + rp_dur
+    ef = it.get("end_freeze")  # {"at","dur","zoom","cx","cy"}: 본편 직후 결정적 순간 확대 정지 박제
+    ef_dur = float(ef.get("dur", 0.8)) if ef else 0.0
+    dur = base_dur + ef_dur
     bh = int(it["box_h"]) // 2 * 2 if it.get("box_h") else video_box_h(info, cfg)
     cr = it.get("crop") or [0, 0, 1, 1]
     sw, sh = info["w"] * cr[2], info["h"] * cr[3]
@@ -893,26 +922,37 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
         pre.append(f"[bb{n}]null[w1]")
     else:
         pre.append("[w0]null[w1]")
+    ef_pad = f",tpad=stop_mode=clone:stop_duration={ef_dur + 0.05:.4f}" if ef else ""
     if cfg["template"] == "black":
         bgf = [*pre, "[w1]null[b]",
-               f"color=black:s={W}x{H}:r={cfg['fps']}[bg]"]
+               f"color=black:s={W}x{H}:r={cfg['fps']}:d={dur + 0.1:.4f}[bg]"]
         vy = cfg["video_top"] + (cfg["video_area_h"] - bh) // 2
     elif cfg["template"] == "ref_black_header":
         bgf = [*pre, "[w1]split[a][b]",
                f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},"
                f"gblur=sigma=30,eq=brightness=-0.05:saturation=1.08,"
-               f"drawbox=x=0:y=0:w={W}:h={cfg['video_top']}:color=black@1:t=fill[bg]"]
+               f"drawbox=x=0:y=0:w={W}:h={cfg['video_top']}:color=black@1:t=fill{ef_pad}[bg]"]
         vy = cfg["video_top"]
     else:
         bgf = [*pre, "[w1]split[a][b]",
                f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},"
-               f"gblur=sigma=28,eq=brightness=-0.06:saturation=1.1[bg]"]
+               f"gblur=sigma=28,eq=brightness=-0.06:saturation=1.1{ef_pad}[bg]"]
         vy = cfg["video_top"]
+    has_p = bool(it.get("punch"))
+    if has_p and ef:
+        fg_out, p_split, p_out = "[fg_raw]", ["[fg_raw]setsar=1,split=2[fgp][ef_src]"], "[ef_main]"
+    elif has_p:
+        fg_out, p_split, p_out = "[fgp]", [], "[fg]"
+    elif ef:
+        fg_out, p_split, p_out = "[fg0]", [], "[fg0]"
+    else:
+        fg_out, p_split, p_out = "[fg]", [], "[fg]"
     fc = [*bgf,
           f"[b]scale={W}:{bh}:force_original_aspect_ratio=increase:flags=lanczos{sharp},"
-          f"crop={W}:{bh}:'{fx_expr}':(ih-oh)*{float(it.get('focus_y', 0.5))}"
-          f"{'[fgp]' if it.get('punch') else '[fg]'}",
-          *punch_chain(it.get("punch"), bh, dur),
+          f"crop={W}:{bh}:'{fx_expr}':(ih-oh)*{float(it.get('focus_y', 0.5))}{fg_out}",
+          *p_split,
+          *punch_chain(it.get("punch"), bh, base_dur, out_tag=p_out),
+          *end_freeze_chain(ef, bh, base_dur, has_punch=has_p, in_tag="[fg0]", out_tag="[fg]"),
           f"[bg][fg]overlay=0:{vy}:shortest=1[v0]",
           "[v0][1:v]overlay=0:0:shortest=1[v1a]",
           # 새 라벨: 클립 시작과 함께 흐릿→선명하게 나타나고, 마지막 프레임 유지
@@ -942,9 +982,10 @@ def render_item(cfg, items, idx, tmp, out, still_at=None):
 
     vol = float(it.get("volume", 1.0))
     if info["audio"]:
+        a_end = base_dur if ef else dur
         fc.append(f"{ain}aresample=48000,aformat=channel_layouts=stereo,volume={vol},"
-                  f"apad,atrim=0:{dur:.3f},afade=t=in:d=0.02,"
-                  f"afade=t=out:st={max(dur - 0.04, 0):.3f}:d=0.04[aout]")  # 컷 경계 '틱' 방지
+                  f"apad,atrim=0:{a_end:.3f},afade=t=in:d=0.02,"
+                  f"afade=t=out:st={max(a_end - 0.04, 0):.3f}:d=0.04,apad,atrim=0:{dur:.3f}[aout]")  # 컷 경계 '틱' 방지
     else:
         fc.append(f"anullsrc=r=48000:cl=stereo,atrim=0:{dur:.3f}[aout]")
     cmd += ["-filter_complex", ";".join(fc), "-map", f"[{last}]", "-map", "[aout]",
@@ -1060,7 +1101,9 @@ def sfx_events(cfg, items, starts, ends, plan_dir):
     whooshes = tr.get("whoosh") or []
     end_at = ends[-1]  # 1위 칼컷 = 엔딩 암전 시작
     has_end = float(cfg.get("end_gap") or 0) > 0
-    if cfg.get("transition_mode") == "ref_hum":
+    if cfg.get("transition_mode") in ("none", "off", False):
+        pass
+    elif cfg.get("transition_mode") == "ref_hum":
         # 레퍼런스 7편 실측: 0.0초 전환음 없음, 모든 순위 사이 암전(0.433초) + 엔딩 암전에만 45.4Hz 서브베이스 험 단독 재생
         hum_sfx = str(ROOT / "assets/sfx/ref_gap_hum.wav")
         hum_vol = float(cfg.get("hum_vol", 0.85))

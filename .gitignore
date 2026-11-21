@@ -30,3 +30,6 @@ desktop.ini
 secrets.env
 client_secret*.json
 token*.json
+
+# 유튜브 업로드용 크롬 프로필 (로그인 쿠키)
+.yt_chrome_rank/
